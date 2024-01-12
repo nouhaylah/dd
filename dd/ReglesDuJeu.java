@@ -65,4 +65,4 @@ public class ReglesDuJeu extends JFrame {
             frame.setVisible(true);
         });
     }
-}
+} 
