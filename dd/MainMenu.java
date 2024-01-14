@@ -1,57 +1,63 @@
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.GroupLayout;
+import java.io.IOException;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.ImageIcon;
-import java.awt.*;
+import javax.swing.border.EmptyBorder;
 
 public class MainMenu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JLabel new_game;
+	private JLabel game_rules;
+	private JLabel exit;
+	private static final String NEWGAME_IMAGE_PATH = "images/nv_partie.png";
+	private static final String RULES_IMAGE_PATH = "images/rules.png";
+	private static final String QUIT_IMAGE_PATH = "images/quitter.png";
 
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainMenu frame = new MainMenu();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		EventQueue.invokeLater(() -> {
+			try {
+				MainMenu frame = new MainMenu();
+				frame.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public MainMenu() {
+		setupFrame();
+		initComponents();
+		layoutComponents();
+		addListeners();
+	}
+
+	private void setupFrame() {
 		setResizable(false);
-		setForeground(new Color(0, 0, 0));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 938, 656);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 0, 0));
+		contentPane.setBackground(Color.BLACK);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
+	}
 
-		JLabel new_game = new JLabel("");
+	private void initComponents() {
+		new_game = new JLabel("");
+		new_game.setIcon(loadImageIcon(NEWGAME_IMAGE_PATH));
 
-		new_game.setIcon(new ImageIcon("images/nv_partie.png"));
+		game_rules = new JLabel("");
+		game_rules.setIcon(loadImageIcon(RULES_IMAGE_PATH));
 
-		JLabel gamme_rules = new JLabel("");
-		gamme_rules.setIcon(new ImageIcon("images/rules.png"));
+		exit = new JLabel("");
+		exit.setIcon(loadImageIcon(QUIT_IMAGE_PATH));
+	}
 
-		JLabel exit = new JLabel("");
-		exit.setIcon(new ImageIcon("images/quitter.png"));
-
+	private void layoutComponents() {
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 				gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -62,7 +68,7 @@ public class MainMenu extends JFrame {
 												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 														.addComponent(new_game, GroupLayout.PREFERRED_SIZE, 508,
 																GroupLayout.PREFERRED_SIZE)
-														.addComponent(gamme_rules, GroupLayout.PREFERRED_SIZE, 525,
+														.addComponent(game_rules, GroupLayout.PREFERRED_SIZE, 525,
 																GroupLayout.PREFERRED_SIZE))
 												.addGap(173))
 										.addComponent(exit, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 188,
@@ -73,35 +79,59 @@ public class MainMenu extends JFrame {
 								.addContainerGap()
 								.addComponent(new_game, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(gamme_rules, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE)
+								.addComponent(game_rules, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
 								.addComponent(exit, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)));
 		contentPane.setLayout(gl_contentPane);
+	}
 
+	private ImageIcon loadImageIcon(String path) {
+		try {
+			return new ImageIcon(getClass().getResource(path));
+		} catch (Exception e) {
+			// Handle the case where the image is not found
+			System.err.println("Image not found: " + path);
+			return null;
+		}
+	}
+
+	private void addListeners() {
 		exit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				setVisible(false);
+				System.exit(0); // Exits the program
 			}
 		});
 
 		new_game.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MenuChoix m = new MenuChoix();
-				setVisible(false);
-				m.setVisible(true);
+				navigateToMenuChoix();
 			}
 		});
 
-		gamme_rules.addMouseListener(new MouseAdapter() {
+		game_rules.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				RulesFrame m = new RulesFrame();
-				setVisible(false);
-				m.setVisible(true);
+				navigateToRulesFrame();
 			}
 		});
+	}
+
+	private void navigateToMenuChoix() {
+		MenuChoix menuChoice = new MenuChoix();
+		setVisible(false);
+		menuChoice.setVisible(true);
+	}
+
+	private void navigateToRulesFrame() {
+		try {
+			RulesFrame rulesFrame = new RulesFrame();
+			setVisible(false);
+			rulesFrame.setVisible(true);
+		} catch (FontFormatException | IOException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 }

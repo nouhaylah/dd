@@ -1,10 +1,9 @@
 import javax.swing.*;
-
 import actions.TourManager;
 import models.Archer;
 import models.Guerrier;
+import models.Personnage;
 import models.Sorcier;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,13 +41,17 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
                 plateau[i][j] = new JButton();
-                // plateau[i][j].setBackground(casess[i][j].getCouleur());
-                plateau[i][j].setBackground(Color.black);
                 plateau[i][j].setIcon(casess[i][j].getIcon());
                 plateau[i][j].setBorder(BorderFactory.createLineBorder(Color.white));
-                // plateau[i][j].setBackground(casess[i][j].getCouleur());
                 plateau[i][j].addActionListener(this);
                 add(plateau[i][j]);
+
+                // Implementation des couleurs du plateau
+                if ((i + j) % 2 == 0) {
+                    plateau[i][j].setBackground(Color.black);
+                } else {
+                    plateau[i][j].setBackground(Color.darkGray);
+                }
             }
         }
     }
@@ -67,7 +70,7 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
                                 || (xSorciere == xGuerrier && ySorciere == yGuerrier)
                                 || (sorciere.getX() == 5 && xSorciere == 6
                                         && (sorciere.getY() == ySorciere + 1 || sorciere.getY() == ySorciere - 1))) {
-                            System.out.println("deplacement impossible");
+                            System.out.println("Deplacement Impossible. Un autre joueur est sur cette case");
                         } else if (sorciere.getX() == 6 && xSorciere == 5
                                 && (sorciere.getY() == ySorciere + 1 || sorciere.getY() == ySorciere - 1)) {
                             System.out.println("sorciere");
@@ -204,7 +207,6 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
                             avancementJeu.joueurActuel.setText(archere.getNom());
                             break;
                         }
-
                     }
                 }
             }
@@ -216,12 +218,15 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
                     if (e.getSource() == plateau[i][j]) {
                         xArcher = i;
                         yArcher = j;
+
                         System.out.println(xArcher + " " + yArcher);
                         if ((xArcher == xGuerrier && yArcher == yGuerrier)
                                 || (xArcher == xSorciere && yArcher == ySorciere)) {
-                            System.out.println("deplacement impossible");
+                            System.out.println("Deplacement Impossible. Un autre joueur est sur cette case");
                         } else if (archere.getX() == 5 && xArcher == 6) {
-                            System.out.println("deplacement impossible");
+                            System.out
+                                    .println(
+                                            "Deplacement Impossible. Vous ne pouvez pas revenir sur votre case de depart");
                         } else if ((archere.getX() == 6 && xArcher == 5
                                 && (archere.getY() == yArcher + 2 || archere.getY() == yArcher - 2))
                                 || (archere.getX() == 6 && xArcher == 4
@@ -301,5 +306,28 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
                 }
             }
         }
+        verifierVictoire();
+    }
+
+    private void verifierVictoire() {
+        if (sorciere.getPointsDeVie() >= 2000) {
+            finJeu(sorciere);
+        }
+
+        if (guerrier.getPointsDeVie() >= 2000) {
+            finJeu(guerrier);
+        }
+
+        if (archere.getPointsDeVie() >= 2000) {
+            finJeu(archere);
+        }
+    };
+
+    private void finJeu(Personnage winner) {
+        JOptionPane.showMessageDialog(this,
+                winner.getNom() + " a gagné la partie avec " + winner.getPointsDeVie() + "PV!", "Fin du Jeu",
+                JOptionPane.INFORMATION_MESSAGE);
+        // Here you could also disable further moves, or close the game, or show a 'Play
+        // Again' button, etc.
     }
 }

@@ -23,7 +23,7 @@ public class Cases {
                     if ((i == 5 && j == 1)) {
                         plateau[i][j] = new Case(i, j, "CHANCE", "images/Chancee.png", 50);
                     } else if ((i == 5 && j == 5)) {
-                        plateau[i][j] = new Case(i, j, "CHANCE", "images/Chancee.png", 30);
+                        plateau[i][j] = new Case(i, j, "CHANCE", "images/Chancee.png", 300);
                     } else if ((i == 1 && j == 1)) {
                         plateau[i][j] = new Case(i, j, "CHANCE", "images/Chancee.png", 70);
                     } else if ((i == 1 && j == 5)) {
@@ -60,40 +60,40 @@ public class Cases {
                 // CASES COMBAT
                 else if ((i == 2 && j == 3) || (i == 4 && j == 3) || (i == 2 && j == 1) || (i == 4 && j == 5)
                         || (i == 2 && j == 6) || (i == 4 && j == 0)) {
-                    plateau[i][j] = new Case(i, j, Color.green, "COMBAT");
+                    plateau[i][j] = new Case(i, j, Color.GREEN, "COMBAT");
                 }
                 // CASES ENIGME
                 else if ((i == 3 && j == 2) || (i == 3 && j == 4) || (i == 4 && j == 1) || (i == 2 && j == 5)
                         || (i == 2 && j == 0) || (i == 4 && j == 6) || (i == 2 && j == 6) || (i == 4 && j == 3)
                         || (i == 3 && j == 1) || (i == 1 && j == 6)) {
                     if (i == 3 && j == 2) {
-                        plateau[i][j] = new Case(i, j, Color.blue, "ENIGME", "images/enigmes/Enigme1.png", "COURT", "");
+                        plateau[i][j] = new Case(i, j, Color.BLUE, "ENIGME", "images/enigmes/Enigme1.png", "COURT", "");
                     } else if (i == 3 && j == 4) {
-                        plateau[i][j] = new Case(i, j, Color.blue, "ENIGME", "images/enigmes/Enigme2.png", "PAROLE",
+                        plateau[i][j] = new Case(i, j, Color.BLUE, "ENIGME", "images/enigmes/Enigme2.png", "PAROLE",
                                 "");
                     } else if (i == 4 && j == 1) {
-                        plateau[i][j] = new Case(i, j, Color.blue, "ENIGME", "images/enigmes/Enigme3.png", "BOUGIE",
+                        plateau[i][j] = new Case(i, j, Color.BLUE, "ENIGME", "images/enigmes/Enigme3.png", "BOUGIE",
                                 "");
                     } else if (i == 2 && j == 5) {
-                        plateau[i][j] = new Case(i, j, Color.blue, "ENIGME", "images/enigmes/Enigme4.png", "REVE", "");
+                        plateau[i][j] = new Case(i, j, Color.BLUE, "ENIGME", "images/enigmes/Enigme4.png", "REVE", "");
                     } else if (i == 2 && j == 0) {
-                        plateau[i][j] = new Case(i, j, Color.blue, "ENIGME", "images/enigmes/Enigme5.png", "PIANO", "");
+                        plateau[i][j] = new Case(i, j, Color.BLUE, "ENIGME", "images/enigmes/Enigme5.png", "PIANO", "");
                     } else if (i == 4 && j == 6) {
-                        plateau[i][j] = new Case(i, j, Color.blue, "ENIGME", "images/enigmes/Enigme6.png", "ORDINATEUR",
+                        plateau[i][j] = new Case(i, j, Color.BLUE, "ENIGME", "images/enigmes/Enigme6.png", "ORDINATEUR",
                                 "");
                     } else if (i == 2 && j == 6) {
-                        plateau[i][j] = new Case(i, j, Color.blue, "ENIGME", "images/enigmes/Enigme7.png",
+                        plateau[i][j] = new Case(i, j, Color.BLUE, "ENIGME", "images/enigmes/Enigme7.png",
                                 "NOMBRE BINAIRE 0", "");
                     } else if (i == 4 && j == 3) {
-                        plateau[i][j] = new Case(i, j, Color.blue, "ENIGME", "images/enigmes/Enigme8.png",
+                        plateau[i][j] = new Case(i, j, Color.BLUE, "ENIGME", "images/enigmes/Enigme8.png",
                                 "MOT DE PASSE",
                                 "");
                     } else if (i == 3 && j == 1) {
-                        plateau[i][j] = new Case(i, j, Color.blue, "ENIGME", "images/enigmes/Enigme9.png",
+                        plateau[i][j] = new Case(i, j, Color.BLUE, "ENIGME", "images/enigmes/Enigme9.png",
                                 "LE NAVIGATEUR TOR",
                                 "");
                     } else if (i == 1 && j == 6) {
-                        plateau[i][j] = new Case(i, j, Color.blue, "ENIGME", "images/enigmes/Enigme10.png",
+                        plateau[i][j] = new Case(i, j, Color.BLUE, "ENIGME", "images/enigmes/Enigme10.png",
                                 "LA MATRICE",
                                 "");
                     }

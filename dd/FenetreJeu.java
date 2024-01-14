@@ -1,5 +1,4 @@
 
-
 import java.awt.GridLayout;
 
 import javax.swing.*;
@@ -27,5 +26,4 @@ public class FenetreJeu extends JFrame {
         add(avancementJeu);
         setLocationRelativeTo(null); // Centrer la fenêtre sur l'écran
     }
-
 }

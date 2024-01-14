@@ -19,9 +19,9 @@ public class Jeu {
 
         tourManager = new TourManager();
         int i = 0;
-        while (i==0) {
-            //String personnage = tourManager.tourPersonnage();
-            //System.out.println(personnage);
+        while (i == 0) {
+            // String personnage = tourManager.tourPersonnage();
+            // System.out.println(personnage);
         }
     }
 
@@ -30,5 +30,4 @@ public class Jeu {
 
     }
 
-    
 }

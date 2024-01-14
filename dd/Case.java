@@ -9,12 +9,14 @@ public class Case extends JButton {
     private String type;
     private Icon icon;
     private String path;
-    private int x,y;
+    private int x, y;
     private String answer;
     private String pathEnigme;
     private int points;
 
-    public Case(int x, int y, Color couleur, String type, String pathEnigme, String answer,String enigme) {
+    public Case(int x, int y, Color couleur, String type, String pathEnigme, String answer, String enigme) { // pour les
+                                                                                                             // cases
+                                                                                                             // enigme
         super();
         this.couleur = couleur;
         this.type = type;
@@ -24,23 +26,7 @@ public class Case extends JButton {
         this.answer = answer;
     }
 
-    public Case() {
-        super();
-        this.couleur = Color.black;
-        this.type = "VIDE";
-        this.path = "";
-    }
-
-    public Case(int x, int y) {
-        super();
-        this.couleur = Color.black;
-        this.type = "VIDE";
-        this.path = "";
-        this.x = x;
-        this.y = y;
-    }
-
-    public Case(int x, int y, Color couleur, String type) {
+    public Case(int x, int y, Color couleur, String type) { // pour les cases combat
         super();
         this.couleur = couleur;
         this.type = type;
@@ -50,15 +36,7 @@ public class Case extends JButton {
         this.answer = "";
     }
 
-    public Case(int x, int y,  String type, String path) {
-        super();
-        this.type = type;
-        this.x = x;
-        this.y = y;
-        this.path = path;
-    }
-
-    public Case(int x, int y,  String type, String path, int points) {
+    public Case(int x, int y, String type, String path, int points) { // pour les cases chance et malchance
         super();
         this.type = type;
         this.x = x;
@@ -67,7 +45,7 @@ public class Case extends JButton {
         this.points = points;
     }
 
-    public Case(int x, int y, Color couleur, String type, String path) {
+    public Case(int x, int y, Color couleur, String type, String path) { // pour les cases depart
         super();
         this.couleur = couleur;
         this.type = type;
@@ -76,19 +54,7 @@ public class Case extends JButton {
         this.y = y;
         this.answer = "";
         this.icon = new ImageIcon(path);
-        //setIcon(icon);
-    }
-
-    public Case(int x, int y, Color couleur, String type, String path, String answer) {
-        super();
-        this.couleur = couleur;
-        this.type = type;
-        this.path = path;
-        this.x = x;
-        this.y = y;
-        this.answer = answer;
-        this.icon = new ImageIcon(path);
-        //setIcon(icon);
+        // setIcon(icon);
     }
 
     public String getPathEnigme() {
@@ -136,7 +102,7 @@ public class Case extends JButton {
         return y;
     }
 
-    public void setY(int y){
+    public void setY(int y) {
         this.y = y;
     }
 
@@ -144,7 +110,7 @@ public class Case extends JButton {
         return x;
     }
 
-    public void setX(int x){
+    public void setX(int x) {
         this.x = x;
     }
 
