@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.FontFormatException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -11,7 +10,6 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 public class RulesFrame extends JFrame {
-
 
 	public RulesFrame() throws FontFormatException, IOException {
 		JPanel contentPane;
@@ -25,12 +23,12 @@ public class RulesFrame extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel back = new JLabel("");
 		back.setIcon(new ImageIcon("images/back.png"));
 		back.setBounds(-80, 623, 232, 64);
 		contentPane.add(back);
-		
+
 		JLabel bg = new JLabel("");
 		bg.setIcon(new ImageIcon("images/imgFond.png"));
 		bg.setBounds(87, -15, 848, 710);

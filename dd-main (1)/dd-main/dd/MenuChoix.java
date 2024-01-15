@@ -35,10 +35,10 @@ public class MenuChoix extends JFrame {
 	private String sorciere_name;
 	private String guerrier_name;
 	private static final String HEADER_TEXT = "CHOISISSEZ VOS PERSONNAGES";
-	private static final Font HEADER_FONT = new Font("Arial Black", Font.BOLD, 26);
-	private static final Color TEXTBOX_BACKGROUND_COLOR = new Color(204, 167, 81);
 	private static final Color TEXTBOX_FOREGROUND_COLOR = Color.BLACK;
+	private static final Color TEXTBOX_BACKGROUND_COLOR = new Color(204, 167, 81);
 	private static final Font TEXTBOX_FONT = new Font("Arial Black", Font.BOLD, 14);
+	private static final Font HEADER_FONT = new Font("Arial Black", Font.BOLD, 26);
 	private static final String DECO_IMAGE_PATH = "images/deco.png";
 	private static final String NEXT_IMAGE_PATH = "images/next.png";
 	private static final String BACK_IMAGE_PATH = "images/back.png";
