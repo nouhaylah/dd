@@ -84,6 +84,8 @@ public class FenetreCaseEnigme extends JFrame implements ActionListener {
 					avancementJeu.setGuerrier_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
 				} else if (personnage.getType().equals("Archer")) {
 					avancementJeu.setArchere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
+				} else if (personnage.getType().equals("Clerc")) {
+					avancementJeu.setClerc_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
 				}
 				this.setVisible(false);
 			} else if (case1.getAnswer() != answer.toUpperCase()) {
@@ -96,6 +98,8 @@ public class FenetreCaseEnigme extends JFrame implements ActionListener {
 					avancementJeu.setGuerrier_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
 				} else if (personnage.getType().equals("Archer")) {
 					avancementJeu.setArchere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
+				} else if (personnage.getType().equals("Clerc")) {
+					avancementJeu.setClerc_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
 				}
 				this.setVisible(false);
 			}
@@ -107,6 +111,8 @@ public class FenetreCaseEnigme extends JFrame implements ActionListener {
 				avancementJeu.setGuerrier_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
 			} else if (personnage.getType().equals("Archer")) {
 				avancementJeu.setArchere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
+			} else if (personnage.getType().equals("Clerc")) {
+				avancementJeu.setClerc_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
 			}
 			this.setVisible(false);
 		}

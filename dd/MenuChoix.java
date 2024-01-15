@@ -3,6 +3,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import models.Archer;
+import models.Clerc;
 import models.Guerrier;
 import models.Sorcier;
 import java.awt.event.MouseAdapter;
@@ -178,7 +179,8 @@ public class MenuChoix extends JFrame {
 				Archer archer = Archer.getInstance(archere_textbox.getText());
 				Sorcier sorcier = Sorcier.getInstance(sorciere_textbox.getText());
 				Guerrier guerrier = Guerrier.getInstance(guerrie_textbox.getText());
-				FenetreJeu f = new FenetreJeu(archer, sorcier, guerrier);
+				Clerc clerc = Clerc.getInstance("Clerc");
+				FenetreJeu f = new FenetreJeu(archer, sorcier, guerrier, clerc);
 				setVisible(false);
 				f.setVisible(true);
 			}

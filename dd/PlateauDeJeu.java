@@ -1,12 +1,16 @@
 import javax.swing.*;
 import actions.TourManager;
 import models.Archer;
+import models.Clerc;
 import models.Guerrier;
 import models.Personnage;
 import models.Sorcier;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.List;
 
 public class PlateauDeJeu extends JPanel implements ActionListener {
     public Cases cases = new Cases();
@@ -16,15 +20,17 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
     public Archer archere;
     public Sorcier sorciere;
     public Guerrier guerrier;
+    public Clerc clerc;
     public String personnage;
     public AvancementJeu avancementJeu;
-    public int xSorciere, ySorciere, xArcher, yArcher, xGuerrier, yGuerrier, x;
+    public int xSorciere, ySorciere, xArcher, yArcher, xGuerrier, yGuerrier, xClerc, yClerc, x;
 
-    public PlateauDeJeu(Archer archere, Sorcier sorciere, Guerrier guerrier, AvancementJeu avancementJeu) {
+    public PlateauDeJeu(Archer archere, Sorcier sorciere, Guerrier guerrier, Clerc clerc, AvancementJeu avancementJeu) {
         this.avancementJeu = avancementJeu;
         this.archere = archere;
         this.sorciere = sorciere;
         this.guerrier = guerrier;
+        this.clerc = clerc;
         TourManager tourManager = new TourManager();
         this.personnage = tourManager.tourPersonnage(currentJoueur);
         this.xSorciere = sorciere.getX();
@@ -33,6 +39,8 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
         this.yArcher = archere.getY();
         this.xGuerrier = guerrier.getX();
         this.yGuerrier = guerrier.getY();
+        this.xClerc = clerc.getX();
+        this.yClerc = clerc.getY();
 
         setSize(700, 700); // Taille de la fenêtre
         setLayout(new GridLayout(7, 7)); // Utilisation d'un GridLayout 6x6
@@ -68,6 +76,7 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
                         System.out.println(xSorciere + " " + ySorciere);
                         if ((xSorciere == xArcher && ySorciere == yArcher)
                                 || (xSorciere == xGuerrier && ySorciere == yGuerrier)
+                                || (xSorciere == xClerc && ySorciere == yClerc)
                                 || (sorciere.getX() == 5 && xSorciere == 6
                                         && (sorciere.getY() == ySorciere + 1 || sorciere.getY() == ySorciere - 1))) {
                             System.out.println("Deplacement Impossible. Un autre joueur est sur cette case");
@@ -132,8 +141,9 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
                         yGuerrier = j;
                         System.out.println(xGuerrier + " " + yGuerrier);
                         if ((xGuerrier == xArcher && yGuerrier == yArcher)
-                                || (xGuerrier == xSorciere && yGuerrier == ySorciere)) {
-                            System.out.println("deplacement impossible");
+                                || (xGuerrier == xSorciere && yGuerrier == ySorciere)
+                                || (xGuerrier == xClerc && yGuerrier == yClerc)) {
+                            System.out.println("Deplacement Impossible. Un autre joueur est sur cette case");
                         } else if (guerrier.getX() == 5 && xGuerrier == 6 && guerrier.getY() == yGuerrier) {
                             System.out.println("deplacement impossible");
                         } else if (guerrier.getX() == 6 && xGuerrier == 5 && guerrier.getY() == yGuerrier) {
@@ -150,9 +160,9 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
                                     || casess[xGuerrier][yGuerrier].getType().equals("MALCHANCE")) {
                                 PopUp fenetreCase = new PopUp(casess[xGuerrier][yGuerrier], guerrier, avancementJeu);
                                 fenetreCase.setVisible(true);
-                            } else if (casess[xSorciere][ySorciere].getType().equals("COMBAT")) {
-                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xSorciere][ySorciere],
-                                        sorciere, avancementJeu);
+                            } else if (casess[xGuerrier][yGuerrier].getType().equals("COMBAT")) {
+                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xGuerrier][yGuerrier],
+                                        guerrier, avancementJeu);
                                 fenetreCase.setVisible(true);
                             }
                             personnage = "Archer";
@@ -174,9 +184,9 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
                                     || casess[xGuerrier][yGuerrier].getType().equals("MALCHANCE")) {
                                 PopUp fenetreCase = new PopUp(casess[xGuerrier][yGuerrier], guerrier, avancementJeu);
                                 fenetreCase.setVisible(true);
-                            } else if (casess[xSorciere][ySorciere].getType().equals("COMBAT")) {
-                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xSorciere][ySorciere],
-                                        sorciere, avancementJeu);
+                            } else if (casess[xGuerrier][yGuerrier].getType().equals("COMBAT")) {
+                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xGuerrier][yGuerrier],
+                                        guerrier, avancementJeu);
                                 fenetreCase.setVisible(true);
                             }
                             personnage = "Archer";
@@ -198,9 +208,9 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
                                     || casess[xGuerrier][yGuerrier].getType().equals("MALCHANCE")) {
                                 PopUp fenetreCase = new PopUp(casess[xGuerrier][yGuerrier], guerrier, avancementJeu);
                                 fenetreCase.setVisible(true);
-                            } else if (casess[xSorciere][ySorciere].getType().equals("COMBAT")) {
-                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xSorciere][ySorciere],
-                                        sorciere, avancementJeu);
+                            } else if (casess[xGuerrier][yGuerrier].getType().equals("COMBAT")) {
+                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xGuerrier][yGuerrier],
+                                        guerrier, avancementJeu);
                                 fenetreCase.setVisible(true);
                             }
                             personnage = "Archer";
@@ -221,7 +231,8 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
 
                         System.out.println(xArcher + " " + yArcher);
                         if ((xArcher == xGuerrier && yArcher == yGuerrier)
-                                || (xArcher == xSorciere && yArcher == ySorciere)) {
+                                || (xArcher == xSorciere && yArcher == ySorciere)
+                                || (xArcher == xClerc && yArcher == yClerc)) {
                             System.out.println("Deplacement Impossible. Un autre joueur est sur cette case");
                         } else if (archere.getX() == 5 && xArcher == 6) {
                             System.out
@@ -244,13 +255,13 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
                                     || casess[xArcher][yArcher].getType().equals("MALCHANCE")) {
                                 PopUp fenetreCase = new PopUp(casess[xArcher][yArcher], archere, avancementJeu);
                                 fenetreCase.setVisible(true);
-                            } else if (casess[xSorciere][ySorciere].getType().equals("COMBAT")) {
-                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xSorciere][ySorciere],
-                                        sorciere, avancementJeu);
+                            } else if (casess[xArcher][yArcher].getType().equals("COMBAT")) {
+                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xArcher][yArcher],
+                                        archere, avancementJeu);
                                 fenetreCase.setVisible(true);
                             }
-                            personnage = "Sorcier";
-                            avancementJeu.joueurActuel.setText(sorciere.getNom());
+                            personnage = "Clerc";
+                            avancementJeu.joueurActuel.setText("Clerc");
                             break;
                         } else if (archere.getX() < 6
                                 && (xArcher == archere.getX() + 1 || xArcher == archere.getX() - 1)
@@ -269,13 +280,13 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
                                     || casess[xArcher][yArcher].getType().equals("MALCHANCE")) {
                                 PopUp fenetreCase = new PopUp(casess[xArcher][yArcher], archere, avancementJeu);
                                 fenetreCase.setVisible(true);
-                            } else if (casess[xSorciere][ySorciere].getType().equals("COMBAT")) {
-                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xSorciere][ySorciere],
-                                        sorciere, avancementJeu);
+                            } else if (casess[xArcher][yArcher].getType().equals("COMBAT")) {
+                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xArcher][yArcher],
+                                        archere, avancementJeu);
                                 fenetreCase.setVisible(true);
                             }
-                            personnage = "Sorcier";
-                            avancementJeu.joueurActuel.setText(sorciere.getNom());
+                            personnage = "Clerc";
+                            avancementJeu.joueurActuel.setText("Clerc");
                             break;
                         } else if (archere.getX() < 6
                                 && (xArcher == archere.getX() + 2 || xArcher == archere.getX() - 2)
@@ -293,20 +304,144 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
                                     || casess[xArcher][yArcher].getType().equals("MALCHANCE")) {
                                 PopUp fenetreCase = new PopUp(casess[xArcher][yArcher], archere, avancementJeu);
                                 fenetreCase.setVisible(true);
-                            } else if (casess[xSorciere][ySorciere].getType().equals("COMBAT")) {
-                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xSorciere][ySorciere],
-                                        sorciere, avancementJeu);
+                            } else if (casess[xArcher][yArcher].getType().equals("COMBAT")) {
+                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xArcher][yArcher],
+                                        archere, avancementJeu);
                                 fenetreCase.setVisible(true);
                             }
-                            personnage = "Sorcier";
-                            avancementJeu.joueurActuel.setText(sorciere.getNom());
+                            personnage = "Clerc";
+                            avancementJeu.joueurActuel.setText("Clerc");
                             break;
                         }
                     }
                 }
             }
         }
+
+        if (personnage.equals("Clerc")) {
+            performClercTurn();
+        }
+
         verifierVictoire();
+    }
+
+    public void performClercTurn() {
+        int delay = 5000;
+        Timer timer = new Timer(delay, new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                List<String> possibleMoves = getPossibleMovesForClerc();
+                String move = chooseRandomMove(possibleMoves);
+                makeMoveForClerc(move);
+                handleCasesClerc();
+                personnage = "Sorcier";
+                avancementJeu.joueurActuel.setText(sorciere.getNom());
+                ((Timer) evt.getSource()).stop(); // Stop the timer after executing once
+            }
+        });
+
+        timer.start();
+    }
+
+    private List<String> getPossibleMovesForClerc() {
+        List<String> moves = new ArrayList<>();
+        // Horizontal and Vertical Moves
+        if (isValidMove(xClerc, yClerc - 1))
+            moves.add("UP");
+        if (isValidMove(xClerc, yClerc + 1))
+            moves.add("DOWN");
+        if (isValidMove(xClerc - 1, yClerc))
+            moves.add("LEFT");
+        if (isValidMove(xClerc + 1, yClerc))
+            moves.add("RIGHT");
+
+        // Diagonal Moves
+        if (isValidMove(xClerc - 1, yClerc - 1))
+            moves.add("UP_LEFT");
+        if (isValidMove(xClerc + 1, yClerc - 1))
+            moves.add("UP_RIGHT");
+        if (isValidMove(xClerc - 1, yClerc + 1))
+            moves.add("DOWN_LEFT");
+        if (isValidMove(xClerc + 1, yClerc + 1))
+            moves.add("DOWN_RIGHT");
+
+        return moves;
+    }
+
+    private String chooseRandomMove(List<String> moves) {
+        Random random = new Random();
+        return moves.get(random.nextInt(moves.size()));
+    }
+
+    private boolean isCellOccupied(int x, int y) {
+        return (x == xArcher && y == yArcher) || (x == xGuerrier && y == yGuerrier)
+                || (x == xSorciere && y == ySorciere);
+    }
+
+    private boolean isValidMove(int x, int y) {
+        // Check if the move is within the grid boundaries
+        if (x < 0 || x >= 6 || y < 0 || y >= 6) {
+            return false;
+        }
+        // Check if the cell is not occupied by another character
+        return !isCellOccupied(x, y);
+    }
+
+    private void makeMoveForClerc(String move) {
+        switch (move) {
+            case "UP":
+                yClerc--;
+                break;
+            case "DOWN":
+                yClerc++;
+                break;
+            case "LEFT":
+                xClerc--;
+                break;
+            case "RIGHT":
+                xClerc++;
+                break;
+            case "UP_LEFT":
+                xClerc--;
+                yClerc--;
+                break;
+            case "UP_RIGHT":
+                xClerc++;
+                yClerc--;
+                break;
+            case "DOWN_LEFT":
+                xClerc--;
+                yClerc++;
+                break;
+            case "DOWN_RIGHT":
+                xClerc++;
+                yClerc++;
+                break;
+        }
+
+        updateBoardWithClercPosition();
+    }
+
+    private void handleCasesClerc() {
+        if (casess[xClerc][yClerc].getType().equals("ENIGME")) {
+            FenetreCaseEnigme fenetreCase = new FenetreCaseEnigme(avancementJeu, clerc,
+                    casess[xClerc][yClerc], "");
+            fenetreCase.setVisible(true);
+        } else if (casess[xClerc][yClerc].getType().equals("CHANCE")
+                || casess[xClerc][yClerc].getType().equals("MALCHANCE")) {
+            PopUp fenetreCase = new PopUp(casess[xClerc][yClerc], clerc, avancementJeu);
+            fenetreCase.setVisible(true);
+        } else if (casess[xClerc][yClerc].getType().equals("COMBAT")) {
+            FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xClerc][yClerc],
+                    clerc, avancementJeu);
+            fenetreCase.setVisible(true);
+        }
+    }
+
+    private void updateBoardWithClercPosition() {
+        plateau[clerc.getX()][clerc.getY()].setIcon(new ImageIcon(""));
+        clerc.setX(xClerc);
+        clerc.setY(yClerc);
+        plateau[xClerc][yClerc].setIcon(new ImageIcon("images\\clercPlateau.png"));
     }
 
     private void verifierVictoire() {
@@ -321,13 +456,16 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
         if (archere.getPointsDeVie() >= 2000) {
             finJeu(archere);
         }
+
+        if (clerc.getPointsDeVie() >= 2000) {
+            finJeu(clerc);
+        }
     };
 
     private void finJeu(Personnage winner) {
         JOptionPane.showMessageDialog(this,
                 winner.getNom() + " a gagné la partie avec " + winner.getPointsDeVie() + "PV!", "Fin du Jeu",
                 JOptionPane.INFORMATION_MESSAGE);
-        // Here you could also disable further moves, or close the game, or show a 'Play
-        // Again' button, etc.
+        System.exit(0);
     }
 }

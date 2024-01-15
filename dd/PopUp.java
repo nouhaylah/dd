@@ -95,6 +95,8 @@ public class PopUp extends JFrame implements ActionListener {
                     avancementJeu.setGuerrier_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
                 } else if (personnage.getType().equals("Archer")) {
                     avancementJeu.setArchere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
+                } else if (personnage.getType().equals("Clerc")) {
+                    avancementJeu.setClerc_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
                 }
             } else if (case1.getType().equals("MALCHANCE")) {
                 personnage.setPointsDeVie(personnage.getPointsDeVie() - case1.getPoints());
@@ -104,6 +106,8 @@ public class PopUp extends JFrame implements ActionListener {
                     avancementJeu.setGuerrier_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
                 } else if (personnage.getType().equals("Archer")) {
                     avancementJeu.setArchere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
+                } else if (personnage.getType().equals("Clerc")) {
+                    avancementJeu.setClerc_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
                 }
             }
 

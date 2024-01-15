@@ -87,6 +87,8 @@ public class FenetreCaseCombat extends JFrame {
             avancementJeu.setGuerrier_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
         } else if (personnage.getType().equals("Archer")) {
             avancementJeu.setArchere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
+        } else if (personnage.getType().equals("Clerc")) {
+            avancementJeu.setClerc_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
         }
 
         JOptionPane.showMessageDialog(this,
@@ -113,6 +115,8 @@ public class FenetreCaseCombat extends JFrame {
             avancementJeu.setGuerrier_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
         } else if (personnage.getType().equals("Archer")) {
             avancementJeu.setArchere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
+        } else if (personnage.getType().equals("Clerc")) {
+            avancementJeu.setClerc_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
         }
         JOptionPane.showMessageDialog(this, "Le monstre vous avez blessé et vous avez perdu 200 PV.");
     }
@@ -126,6 +130,8 @@ public class FenetreCaseCombat extends JFrame {
             avancementJeu.setGuerrier_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
         } else if (personnage.getType().equals("Archer")) {
             avancementJeu.setArchere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
+        } else if (personnage.getType().equals("Clerc")) {
+            avancementJeu.setClerc_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
         }
     }
 

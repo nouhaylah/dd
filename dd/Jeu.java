@@ -1,5 +1,6 @@
 import actions.TourManager;
 import models.Archer;
+import models.Clerc;
 import models.Guerrier;
 import models.Sorcier;
 
@@ -11,7 +12,7 @@ public class Jeu {
 
     TourManager tourManager = new TourManager();
 
-    public Jeu(FenetreJeu fenetreJeu, Archer archere, Sorcier sorciere, Guerrier guerrier) {
+    public Jeu(FenetreJeu fenetreJeu, Archer archere, Sorcier sorciere, Guerrier guerrier, Clerc clerc) {
         this.fenetreJeu = fenetreJeu;
         this.archere = archere;
         this.sorciere = sorciere;

@@ -1,16 +1,16 @@
-
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.*;
 import models.Archer;
 import models.Guerrier;
 import models.Sorcier;
+import models.Clerc;
 
 public class AvancementJeu extends JPanel {
 	public JLabel joueurActuel;
-	private JLabel archere_name, sorciere_name, guerrier_name;
+	private JLabel archere_name, sorciere_name, guerrier_name, clerc_name;
 
-	public AvancementJeu(Archer archere, Sorcier sorciere, Guerrier guerrier) {
+	public AvancementJeu(Archer archere, Sorcier sorciere, Guerrier guerrier, Clerc clerc) {
 
 		setSize(700, 700); // Taille de la fenêtre
 		setLayout(null);
@@ -31,6 +31,11 @@ public class AvancementJeu extends JPanel {
 		pvArchere.setBounds(0, 10, 148, 188);
 		add(pvArchere);
 
+		JLabel pvClerc = new JLabel("");
+		pvClerc.setIcon(new ImageIcon("images\\heart.png"));
+		pvClerc.setBounds(0, 50, 148, 188);
+		add(pvClerc);
+
 		archere_name = new JLabel(archere.getPointsDeVie() + "PV  " + archere.getNom());
 		archere_name.setFont(new Font("Calibri", Font.BOLD, 18));
 		archere_name.setForeground(new Color(255, 255, 255));
@@ -48,6 +53,12 @@ public class AvancementJeu extends JPanel {
 		guerrier_name.setFont(new Font("Calibri", Font.BOLD, 18));
 		guerrier_name.setBounds(539, 20, 124, 35);
 		add(guerrier_name);
+
+		clerc_name = new JLabel(clerc.getPointsDeVie() + "PV  " + "Clerc");
+		clerc_name.setForeground(Color.WHITE);
+		clerc_name.setFont(new Font("Calibri", Font.BOLD, 18));
+		clerc_name.setBounds(90, 55, 124, 35);
+		add(clerc_name);
 
 		JLabel labelTour = new JLabel("C'est au tour de :");
 		labelTour.setForeground(Color.WHITE);
@@ -69,7 +80,6 @@ public class AvancementJeu extends JPanel {
 
 	public void setArchere_name(String archere_name) {
 		this.archere_name.setText(archere_name);
-		;
 	}
 
 	public void setGuerrier_name(String guerrier_name) {
@@ -78,5 +88,9 @@ public class AvancementJeu extends JPanel {
 
 	public void setSorciere_name(String sorciere_name) {
 		this.sorciere_name.setText(sorciere_name);
+	}
+
+	public void setClerc_name(String clerc_name) {
+		this.clerc_name.setText(clerc_name);
 	}
 }

@@ -1,15 +1,14 @@
 package models;
 
-
 public class Personnage {
     private int pointsDeVie;
     private int puissanceAttaques;
     private String nom;
-    private int x,y;
+    private int x, y;
     private String icon;
     private String type;
 
-    public Personnage(){
+    public Personnage() {
         this.pointsDeVie = 0;
         this.puissanceAttaques = 0;
         this.nom = "";
@@ -17,7 +16,7 @@ public class Personnage {
         this.y = 0;
     }
 
-    public Personnage(String type){
+    public Personnage(String type) {
         this.pointsDeVie = 0;
         this.puissanceAttaques = 0;
         this.nom = "";
@@ -48,7 +47,7 @@ public class Personnage {
     public String getIcon() {
         return icon;
     }
-    
+
     public void setPointsDeVie(int pointsDeVie) {
         this.pointsDeVie = pointsDeVie;
     }
@@ -80,6 +79,5 @@ public class Personnage {
     public int getY() {
         return y;
     }
-
 
 }
