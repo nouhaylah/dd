@@ -68,62 +68,22 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (personnage.equals("Sorcier")) {
-            for (int i = 0; i < 7; i++) {
-                for (int j = 0; j < 7; j++) {
+            for (int i = 0; i < 6; i++) {
+                for (int j = 0; j < 6; j++) {
                     if (e.getSource() == plateau[i][j]) {
                         xSorciere = i;
                         ySorciere = j;
                         System.out.println(xSorciere + " " + ySorciere);
-                        if ((xSorciere == xArcher && ySorciere == yArcher)
-                                || (xSorciere == xGuerrier && ySorciere == yGuerrier)
-                                || (xSorciere == xClerc && ySorciere == yClerc)
-                                || (sorciere.getX() == 5 && xSorciere == 6
-                                        && (sorciere.getY() == ySorciere + 1 || sorciere.getY() == ySorciere - 1))) {
-                            System.out.println("Deplacement Impossible. Un autre joueur est sur cette case");
-                        } else if (sorciere.getX() == 6 && xSorciere == 5
-                                && (sorciere.getY() == ySorciere + 1 || sorciere.getY() == ySorciere - 1)) {
-                            System.out.println("sorciere");
-                            plateau[sorciere.getX()][sorciere.getY()].setIcon(new ImageIcon(""));
-                            sorciere.setX(xSorciere);
-                            sorciere.setY(ySorciere);
-                            plateau[xSorciere][ySorciere].setIcon(new ImageIcon("images\\sorcierePlateau.png"));
-                            if (casess[xSorciere][ySorciere].getType().equals("ENIGME")) {
-                                FenetreCaseEnigme fenetreCase = new FenetreCaseEnigme(avancementJeu, sorciere,
-                                        casess[xSorciere][ySorciere], "");
-                                fenetreCase.setVisible(true);
-                            } else if (casess[xSorciere][ySorciere].getType().equals("CHANCE")
-                                    || casess[xSorciere][ySorciere].getType().equals("MALCHANCE")) {
-                                PopUp fenetreCase = new PopUp(casess[xSorciere][ySorciere], sorciere, avancementJeu);
-                                fenetreCase.setVisible(true);
-                            } else if (casess[xSorciere][ySorciere].getType().equals("COMBAT")) {
-                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xSorciere][ySorciere],
-                                        sorciere, avancementJeu);
-                                fenetreCase.setVisible(true);
-                            }
-                            personnage = "Guerrier";
-                            avancementJeu.joueurActuel.setText(guerrier.getNom());
-                            break;
-                        } else if (sorciere.getX() < 6
-                                && (xSorciere == sorciere.getX() + 1 || xSorciere == sorciere.getX() - 1)
-                                && (sorciere.getY() == ySorciere + 1 || sorciere.getY() == ySorciere - 1)) {
-                            System.out.println("sorciere");
-                            plateau[sorciere.getX()][sorciere.getY()].setIcon(new ImageIcon(""));
-                            sorciere.setX(xSorciere);
-                            sorciere.setY(ySorciere);
-                            plateau[xSorciere][ySorciere].setIcon(new ImageIcon("images\\sorcierePlateau.png"));
-                            if (casess[xSorciere][ySorciere].getType().equals("ENIGME")) {
-                                FenetreCaseEnigme fenetreCase = new FenetreCaseEnigme(avancementJeu, sorciere,
-                                        casess[xSorciere][ySorciere], "");
-                                fenetreCase.setVisible(true);
-                            } else if (casess[xSorciere][ySorciere].getType().equals("CHANCE")
-                                    || casess[xSorciere][ySorciere].getType().equals("MALCHANCE")) {
-                                PopUp fenetreCase = new PopUp(casess[xSorciere][ySorciere], sorciere, avancementJeu);
-                                fenetreCase.setVisible(true);
-                            } else if (casess[xSorciere][ySorciere].getType().equals("COMBAT")) {
-                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xSorciere][ySorciere],
-                                        sorciere, avancementJeu);
-                                fenetreCase.setVisible(true);
-                            }
+
+                        if (isOccupiedSorciere(xSorciere, ySorciere)) {
+                            System.out.println(
+                                    "Deplacement Impossible. Un autre joueur est sur cette case!");
+                        } else if (!isValidDiagonalMove(sorciere, xSorciere, ySorciere)) {
+                            System.out.println(
+                                    "Deplacement Impossible. Mouvement non valide!");
+                        } else {
+                            moveSorciere(sorciere, xSorciere, ySorciere);
+                            handleCases(xSorciere, ySorciere, archere);
                             personnage = "Guerrier";
                             avancementJeu.joueurActuel.setText(guerrier.getNom());
                             break;
@@ -134,85 +94,20 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
         }
 
         if (personnage.equals("Guerrier")) {
-            for (int i = 0; i < 7; i++) {
-                for (int j = 0; j < 7; j++) {
+            for (int i = 0; i < 6; i++) {
+                for (int j = 0; j < 6; j++) {
                     if (e.getSource() == plateau[i][j]) {
                         xGuerrier = i;
                         yGuerrier = j;
                         System.out.println(xGuerrier + " " + yGuerrier);
-                        if ((xGuerrier == xArcher && yGuerrier == yArcher)
-                                || (xGuerrier == xSorciere && yGuerrier == ySorciere)
-                                || (xGuerrier == xClerc && yGuerrier == yClerc)) {
-                            System.out.println("Deplacement Impossible. Un autre joueur est sur cette case");
-                        } else if (guerrier.getX() == 5 && xGuerrier == 6 && guerrier.getY() == yGuerrier) {
-                            System.out.println("deplacement impossible");
-                        } else if (guerrier.getX() == 6 && xGuerrier == 5 && guerrier.getY() == yGuerrier) {
-                            System.out.println("guerrier");
-                            plateau[guerrier.getX()][guerrier.getY()].setIcon(new ImageIcon(""));
-                            guerrier.setX(xGuerrier);
-                            guerrier.setY(yGuerrier);
-                            plateau[xGuerrier][yGuerrier].setIcon(new ImageIcon("images\\guerrierPlateau.png"));
-                            if (casess[xGuerrier][yGuerrier].getType().equals("ENIGME")) {
-                                FenetreCaseEnigme fenetreCase = new FenetreCaseEnigme(avancementJeu, guerrier,
-                                        casess[xGuerrier][yGuerrier], "");
-                                fenetreCase.setVisible(true);
-                            } else if (casess[xGuerrier][yGuerrier].getType().equals("CHANCE")
-                                    || casess[xGuerrier][yGuerrier].getType().equals("MALCHANCE")) {
-                                PopUp fenetreCase = new PopUp(casess[xGuerrier][yGuerrier], guerrier, avancementJeu);
-                                fenetreCase.setVisible(true);
-                            } else if (casess[xGuerrier][yGuerrier].getType().equals("COMBAT")) {
-                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xGuerrier][yGuerrier],
-                                        guerrier, avancementJeu);
-                                fenetreCase.setVisible(true);
-                            }
-                            personnage = "Archer";
-                            avancementJeu.joueurActuel.setText(archere.getNom());
-                            break;
-                        } else if (guerrier.getX() < 6
-                                && (xGuerrier == guerrier.getX() + 1 || xGuerrier == guerrier.getX() - 1)
-                                && guerrier.getY() == yGuerrier) {
-                            System.out.println("guerrier");
-                            plateau[guerrier.getX()][guerrier.getY()].setIcon(new ImageIcon(""));
-                            guerrier.setX(xGuerrier);
-                            guerrier.setY(yGuerrier);
-                            plateau[xGuerrier][yGuerrier].setIcon(new ImageIcon("images\\guerrierPlateau.png"));
-                            if (casess[xGuerrier][yGuerrier].getType().equals("ENIGME")) {
-                                FenetreCaseEnigme fenetreCase = new FenetreCaseEnigme(avancementJeu, guerrier,
-                                        casess[xGuerrier][yGuerrier], "");
-                                fenetreCase.setVisible(true);
-                            } else if (casess[xGuerrier][yGuerrier].getType().equals("CHANCE")
-                                    || casess[xGuerrier][yGuerrier].getType().equals("MALCHANCE")) {
-                                PopUp fenetreCase = new PopUp(casess[xGuerrier][yGuerrier], guerrier, avancementJeu);
-                                fenetreCase.setVisible(true);
-                            } else if (casess[xGuerrier][yGuerrier].getType().equals("COMBAT")) {
-                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xGuerrier][yGuerrier],
-                                        guerrier, avancementJeu);
-                                fenetreCase.setVisible(true);
-                            }
-                            personnage = "Archer";
-                            avancementJeu.joueurActuel.setText(archere.getNom());
-                            break;
-                        } else if (guerrier.getX() < 6
-                                && (yGuerrier == guerrier.getY() + 1 || yGuerrier == guerrier.getY() - 1)
-                                && guerrier.getX() == xGuerrier) {
-                            System.out.println("guerrier");
-                            plateau[guerrier.getX()][guerrier.getY()].setIcon(new ImageIcon(""));
-                            guerrier.setX(xGuerrier);
-                            guerrier.setY(yGuerrier);
-                            plateau[xGuerrier][yGuerrier].setIcon(new ImageIcon("images\\guerrierPlateau.png"));
-                            if (casess[xGuerrier][yGuerrier].getType().equals("ENIGME")) {
-                                FenetreCaseEnigme fenetreCase = new FenetreCaseEnigme(avancementJeu, guerrier,
-                                        casess[xGuerrier][yGuerrier], "");
-                                fenetreCase.setVisible(true);
-                            } else if (casess[xGuerrier][yGuerrier].getType().equals("CHANCE")
-                                    || casess[xGuerrier][yGuerrier].getType().equals("MALCHANCE")) {
-                                PopUp fenetreCase = new PopUp(casess[xGuerrier][yGuerrier], guerrier, avancementJeu);
-                                fenetreCase.setVisible(true);
-                            } else if (casess[xGuerrier][yGuerrier].getType().equals("COMBAT")) {
-                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xGuerrier][yGuerrier],
-                                        guerrier, avancementJeu);
-                                fenetreCase.setVisible(true);
-                            }
+
+                        if (isOccupiedGuerrier(xGuerrier, yGuerrier)) {
+                            System.out.println("Deplacement Impossible. Un autre joueur est sur cette case!");
+                        } else if (!isValidHorizontalOrVerticalMove(guerrier, xGuerrier, yGuerrier)) {
+                            System.out.println("Deplacement Impossible. Mouvement non valide !");
+                        } else {
+                            moveGuerrier(guerrier, xGuerrier, yGuerrier);
+                            handleCases(xGuerrier, yGuerrier, guerrier);
                             personnage = "Archer";
                             avancementJeu.joueurActuel.setText(archere.getNom());
                             break;
@@ -223,92 +118,19 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
         }
 
         if (personnage.equals("Archer")) {
-            for (int i = 0; i < 7; i++) {
-                for (int j = 0; j < 7; j++) {
+            for (int i = 0; i < 6; i++) {
+                for (int j = 0; j < 6; j++) {
                     if (e.getSource() == plateau[i][j]) {
                         xArcher = i;
                         yArcher = j;
-
                         System.out.println(xArcher + " " + yArcher);
-                        if ((xArcher == xGuerrier && yArcher == yGuerrier)
-                                || (xArcher == xSorciere && yArcher == ySorciere)
-                                || (xArcher == xClerc && yArcher == yClerc)) {
-                            System.out.println("Deplacement Impossible. Un autre joueur est sur cette case");
-                        } else if (archere.getX() == 5 && xArcher == 6) {
-                            System.out
-                                    .println(
-                                            "Deplacement Impossible. Vous ne pouvez pas revenir sur votre case de depart");
-                        } else if ((archere.getX() == 6 && xArcher == 5
-                                && (archere.getY() == yArcher + 2 || archere.getY() == yArcher - 2))
-                                || (archere.getX() == 6 && xArcher == 4
-                                        && (archere.getY() == yArcher + 1 || archere.getY() == yArcher - 1))) {
-                            System.out.println("archer");
-                            plateau[archere.getX()][archere.getY()].setIcon(new ImageIcon(""));
-                            archere.setX(xArcher);
-                            archere.setY(yArcher);
-                            plateau[xArcher][yArcher].setIcon(new ImageIcon("images\\archerePlateau.png"));
-                            if (casess[xArcher][yArcher].getType().equals("ENIGME")) {
-                                FenetreCaseEnigme fenetreCase = new FenetreCaseEnigme(avancementJeu, archere,
-                                        casess[xArcher][yArcher], "");
-                                fenetreCase.setVisible(true);
-                            } else if (casess[xArcher][yArcher].getType().equals("CHANCE")
-                                    || casess[xArcher][yArcher].getType().equals("MALCHANCE")) {
-                                PopUp fenetreCase = new PopUp(casess[xArcher][yArcher], archere, avancementJeu);
-                                fenetreCase.setVisible(true);
-                            } else if (casess[xArcher][yArcher].getType().equals("COMBAT")) {
-                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xArcher][yArcher],
-                                        archere, avancementJeu);
-                                fenetreCase.setVisible(true);
-                            }
-                            personnage = "Clerc";
-                            avancementJeu.joueurActuel.setText("Clerc");
-                            break;
-                        } else if (archere.getX() < 6
-                                && (xArcher == archere.getX() + 1 || xArcher == archere.getX() - 1)
-                                && (archere.getY() == yArcher + 2 || archere.getY() == yArcher - 2)) {
 
-                            System.out.println("archer");
-                            plateau[archere.getX()][archere.getY()].setIcon(new ImageIcon(""));
-                            archere.setX(xArcher);
-                            archere.setY(yArcher);
-                            plateau[xArcher][yArcher].setIcon(new ImageIcon("images\\archerePlateau.png"));
-                            if (casess[xArcher][yArcher].getType().equals("ENIGME")) {
-                                FenetreCaseEnigme fenetreCase = new FenetreCaseEnigme(avancementJeu, archere,
-                                        casess[xArcher][yArcher], "");
-                                fenetreCase.setVisible(true);
-                            } else if (casess[xArcher][yArcher].getType().equals("CHANCE")
-                                    || casess[xArcher][yArcher].getType().equals("MALCHANCE")) {
-                                PopUp fenetreCase = new PopUp(casess[xArcher][yArcher], archere, avancementJeu);
-                                fenetreCase.setVisible(true);
-                            } else if (casess[xArcher][yArcher].getType().equals("COMBAT")) {
-                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xArcher][yArcher],
-                                        archere, avancementJeu);
-                                fenetreCase.setVisible(true);
-                            }
-                            personnage = "Clerc";
-                            avancementJeu.joueurActuel.setText("Clerc");
-                            break;
-                        } else if (archere.getX() < 6
-                                && (xArcher == archere.getX() + 2 || xArcher == archere.getX() - 2)
-                                && (archere.getY() == yArcher + 1 || archere.getY() == yArcher - 1)) {
-                            System.out.println("archer");
-                            plateau[archere.getX()][archere.getY()].setIcon(new ImageIcon(""));
-                            archere.setX(xArcher);
-                            archere.setY(yArcher);
-                            plateau[xArcher][yArcher].setIcon(new ImageIcon("images\\archerePlateau.png"));
-                            if (casess[xArcher][yArcher].getType().equals("ENIGME")) {
-                                FenetreCaseEnigme fenetreCase = new FenetreCaseEnigme(avancementJeu, archere,
-                                        casess[xArcher][yArcher], "");
-                                fenetreCase.setVisible(true);
-                            } else if (casess[xArcher][yArcher].getType().equals("CHANCE")
-                                    || casess[xArcher][yArcher].getType().equals("MALCHANCE")) {
-                                PopUp fenetreCase = new PopUp(casess[xArcher][yArcher], archere, avancementJeu);
-                                fenetreCase.setVisible(true);
-                            } else if (casess[xArcher][yArcher].getType().equals("COMBAT")) {
-                                FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xArcher][yArcher],
-                                        archere, avancementJeu);
-                                fenetreCase.setVisible(true);
-                            }
+                        if (isOccupiedArcher(xArcher, yArcher) || !isValidLMove(archere, xArcher, yArcher)) {
+                            System.out.println(
+                                    "Deplacement Impossible. Un autre joueur est sur cette case ou mouvement non valide");
+                        } else {
+                            moveArcher(archere, xArcher, yArcher);
+                            handleCases(xArcher, yArcher, archere);
                             personnage = "Clerc";
                             avancementJeu.joueurActuel.setText("Clerc");
                             break;
@@ -325,6 +147,57 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
         verifierVictoire();
     }
 
+    // Fonctions sorciere
+    private boolean isOccupiedSorciere(int x, int y) {
+        return x == xArcher && y == yArcher || x == xGuerrier && y == yGuerrier || x == xClerc && y == yClerc;
+    }
+
+    private boolean isValidDiagonalMove(Personnage sorciere, int newX, int newY) {
+        return Math.abs(newX - sorciere.getX()) == 1 && Math.abs(newY - sorciere.getY()) == 1;
+    }
+
+    private void moveSorciere(Personnage sorciere, int xSorciere, int ySorciere) {
+        plateau[sorciere.getX()][sorciere.getY()].setIcon(new ImageIcon(""));
+        sorciere.setX(xSorciere);
+        sorciere.setY(ySorciere);
+        plateau[xSorciere][ySorciere].setIcon(new ImageIcon("images\\sorcierePlateau.png"));
+    }
+
+    // Fonctions guerrier
+    private boolean isOccupiedGuerrier(int x, int y) {
+        return x == xArcher && y == yArcher || x == xSorciere && y == ySorciere || x == xClerc && y == yClerc;
+    }
+
+    private boolean isValidHorizontalOrVerticalMove(Personnage guerrier, int newX, int newY) {
+        return (guerrier.getX() == newX && Math.abs(guerrier.getY() - newY) == 1) ||
+                (guerrier.getY() == newY && Math.abs(guerrier.getX() - newX) == 1);
+    }
+
+    private void moveGuerrier(Personnage guerrier, int newX, int newY) {
+        plateau[guerrier.getX()][guerrier.getY()].setIcon(new ImageIcon(""));
+        guerrier.setX(xGuerrier);
+        guerrier.setY(yGuerrier);
+        plateau[xGuerrier][yGuerrier].setIcon(new ImageIcon("images\\guerrierPlateau.png"));
+    }
+
+    // Fonctions archer
+    private boolean isOccupiedArcher(int x, int y) {
+        return x == xGuerrier && y == yGuerrier || x == xSorciere && y == ySorciere || x == xClerc && y == yClerc;
+    }
+
+    private boolean isValidLMove(Personnage archere, int newX, int newY) {
+        return (Math.abs(archere.getX() - newX) == 2 && Math.abs(archere.getY() - newY) == 1) ||
+                (Math.abs(archere.getX() - newX) == 1 && Math.abs(archere.getY() - newY) == 2);
+    }
+
+    private void moveArcher(Personnage archere, int newX, int newY) {
+        plateau[archere.getX()][archere.getY()].setIcon(new ImageIcon(""));
+        archere.setX(xArcher);
+        archere.setY(yArcher);
+        plateau[xArcher][yArcher].setIcon(new ImageIcon("images\\archerePlateau.png"));
+    }
+
+    // Fonctions clerc
     public void performClercTurn() {
         int delay = 5000;
         Timer timer = new Timer(delay, new ActionListener() {
@@ -332,7 +205,7 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
                 List<String> possibleMoves = getPossibleMovesForClerc();
                 String move = chooseRandomMove(possibleMoves);
                 makeMoveForClerc(move);
-                handleCasesClerc();
+                handleCases(xClerc, yClerc, clerc);
                 personnage = "Sorcier";
                 avancementJeu.joueurActuel.setText(sorciere.getNom());
                 ((Timer) evt.getSource()).stop(); // Stop the timer after executing once
@@ -421,27 +294,28 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
         updateBoardWithClercPosition();
     }
 
-    private void handleCasesClerc() {
-        if (casess[xClerc][yClerc].getType().equals("ENIGME")) {
-            FenetreCaseEnigme fenetreCase = new FenetreCaseEnigme(avancementJeu, clerc,
-                    casess[xClerc][yClerc], "");
-            fenetreCase.setVisible(true);
-        } else if (casess[xClerc][yClerc].getType().equals("CHANCE")
-                || casess[xClerc][yClerc].getType().equals("MALCHANCE")) {
-            PopUp fenetreCase = new PopUp(casess[xClerc][yClerc], clerc, avancementJeu);
-            fenetreCase.setVisible(true);
-        } else if (casess[xClerc][yClerc].getType().equals("COMBAT")) {
-            FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xClerc][yClerc],
-                    clerc, avancementJeu);
-            fenetreCase.setVisible(true);
-        }
-    }
-
     private void updateBoardWithClercPosition() {
         plateau[clerc.getX()][clerc.getY()].setIcon(new ImageIcon(""));
         clerc.setX(xClerc);
         clerc.setY(yClerc);
         plateau[xClerc][yClerc].setIcon(new ImageIcon("images\\clercPlateau.png"));
+    }
+
+    // Fonction cases
+    private void handleCases(int xPersonnage, int yPersonnage, Personnage personnage) {
+        if (casess[xPersonnage][yPersonnage].getType().equals("ENIGME")) {
+            FenetreCaseEnigme fenetreCase = new FenetreCaseEnigme(avancementJeu, personnage,
+                    casess[xPersonnage][yPersonnage], "");
+            fenetreCase.setVisible(true);
+        } else if (casess[xPersonnage][yPersonnage].getType().equals("CHANCE")
+                || casess[xPersonnage][yPersonnage].getType().equals("MALCHANCE")) {
+            PopUp fenetreCase = new PopUp(casess[xPersonnage][yPersonnage], personnage, avancementJeu);
+            fenetreCase.setVisible(true);
+        } else if (casess[xPersonnage][yPersonnage].getType().equals("COMBAT")) {
+            FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xPersonnage][yPersonnage],
+                    personnage, avancementJeu);
+            fenetreCase.setVisible(true);
+        }
     }
 
     private void verifierVictoire() {
