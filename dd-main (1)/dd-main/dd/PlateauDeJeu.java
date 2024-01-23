@@ -83,7 +83,7 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
                                     "Deplacement Impossible. Mouvement non valide!");
                         } else {
                             moveSorciere(sorciere, xSorciere, ySorciere);
-                            handleCases(xSorciere, ySorciere, archere);
+                            handleCases(xSorciere, ySorciere, sorciere);
                             personnage = "Guerrier";
                             avancementJeu.joueurActuel.setText(guerrier.getNom());
                             break;
