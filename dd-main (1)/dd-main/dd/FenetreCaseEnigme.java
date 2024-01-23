@@ -5,6 +5,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
 import models.Personnage;
@@ -22,10 +24,83 @@ public class FenetreCaseEnigme extends JFrame implements ActionListener {
 	private AvancementJeu avancementJeu;
 
 	public FenetreCaseEnigme(AvancementJeu av, Personnage personnage, Case case1, String answer) {
-		JPanel contentPane;
 		this.personnage = personnage;
 		this.case1 = case1;
 		this.avancementJeu = av;
+		setupUIComponents();
+
+		if ("Clerc".equals(personnage.getType())) {
+			handleClercClick();
+		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String btn = ((JButton) e.getSource()).getText();
+		if (btn.equals("REPONDRE")) {
+			String answer = reponse.getText();
+			System.out.println(answer);
+			System.out.println(case1.getAnswer());
+
+			if (case1.getAnswer().contains(answer.toUpperCase())) {
+				System.out.println(answer);
+				JOptionPane.showMessageDialog(this,
+						"Vous avez bien répondue à l'énigme, vous gagnez 50 points de vie !");
+				personnage.setPointsDeVie(personnage.getPointsDeVie() + 50);
+				updateAvancementJeu();
+				this.setVisible(false);
+			} else if (case1.getAnswer() != answer.toUpperCase()) {
+				JOptionPane.showMessageDialog(this,
+						"Vous avez mal répondue à l'énigme, vous perdez 50 points de vie !");
+				personnage.setPointsDeVie(personnage.getPointsDeVie() - 50);
+				updateAvancementJeu();
+				this.setVisible(false);
+			}
+		} else if (btn.equals("ABANDONNER")) {
+			personnage.setPointsDeVie(personnage.getPointsDeVie() - 50);
+			updateAvancementJeu();
+			this.setVisible(false);
+		}
+	}
+
+	private void updateAvancementJeu() {
+		// Logic to update avancementJeu based on personnage type
+		String pvText = personnage.getPointsDeVie() + "PV  " + personnage.getNom();
+		switch (personnage.getType()) {
+			case "Sorcier":
+				avancementJeu.setSorciere_name(pvText);
+				break;
+			case "Guerrier":
+				avancementJeu.setGuerrier_name(pvText);
+				break;
+			case "Archer":
+				avancementJeu.setArchere_name(pvText);
+				break;
+			case "Clerc":
+				avancementJeu.setClerc_name(pvText);
+				break;
+		}
+	}
+
+	private void handleClercClick() {
+		int delay = 2000;
+		Timer timer = new Timer(delay, new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				SwingUtilities.invokeLater(() -> {
+					btnAbondonner.doClick();
+				});
+				updateAvancementJeu();
+				((Timer) evt.getSource()).stop(); // Stop the timer after executing once
+			}
+		});
+
+		timer.start();
+	}
+
+	private void setupUIComponents() {
+		JPanel contentPane;
+		setTitle("ENIGME");
+
 		setBackground(new Color(0, 0, 0));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1072, 744);
@@ -65,57 +140,4 @@ public class FenetreCaseEnigme extends JFrame implements ActionListener {
 
 		setResizable(false);
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		String btn = ((JButton) e.getSource()).getText();
-		if (btn.equals("REPONDRE")) {
-			String answer = reponse.getText();
-			System.out.println(answer);
-			System.out.println(case1.getAnswer());
-			if (case1.getAnswer().contains(answer.toUpperCase())) {
-				System.out.println(answer);
-				JOptionPane.showMessageDialog(this,
-						"Vous avez bien répondue à l'énigme, vous gagnez 50 points de vie !");
-				personnage.setPointsDeVie(personnage.getPointsDeVie() + 50);
-				if (personnage.getType().equals("Sorcier")) {
-					avancementJeu.setSorciere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-				} else if (personnage.getType().equals("Guerrier")) {
-					avancementJeu.setGuerrier_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-				} else if (personnage.getType().equals("Archer")) {
-					avancementJeu.setArchere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-				} else if (personnage.getType().equals("Clerc")) {
-					avancementJeu.setClerc_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-				}
-				this.setVisible(false);
-			} else if (case1.getAnswer() != answer.toUpperCase()) {
-				JOptionPane.showMessageDialog(this,
-						"Vous avez mal répondue à l'énigme, vous perdez 50 points de vie !");
-				personnage.setPointsDeVie(personnage.getPointsDeVie() - 50);
-				if (personnage.getType().equals("Sorcier")) {
-					avancementJeu.setSorciere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-				} else if (personnage.getType().equals("Guerrier")) {
-					avancementJeu.setGuerrier_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-				} else if (personnage.getType().equals("Archer")) {
-					avancementJeu.setArchere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-				} else if (personnage.getType().equals("Clerc")) {
-					avancementJeu.setClerc_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-				}
-				this.setVisible(false);
-			}
-		} else if (btn.equals("ABANDONNER")) {
-			personnage.setPointsDeVie(personnage.getPointsDeVie() - 50);
-			if (personnage.getType().equals("Sorcier")) {
-				avancementJeu.setSorciere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-			} else if (personnage.getType().equals("Guerrier")) {
-				avancementJeu.setGuerrier_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-			} else if (personnage.getType().equals("Archer")) {
-				avancementJeu.setArchere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-			} else if (personnage.getType().equals("Clerc")) {
-				avancementJeu.setClerc_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-			}
-			this.setVisible(false);
-		}
-	}
-
 }

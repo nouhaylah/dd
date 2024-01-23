@@ -17,13 +17,20 @@ public class FenetreCaseCombat extends JFrame {
     JButton btnFuir = new CustomButton("Fuir", Color.DARK_GRAY, Color.WHITE, new Font(font, Font.BOLD, 20));
     JButton btnLutter = new CustomButton("Lutter", Color.DARK_GRAY, Color.WHITE,
             new Font(font, Font.BOLD, 20));
+    JLabel lblNewLabel = new JLabel("");
+    JPanel buttonPanel = new JPanel(new GridBagLayout());
+    BackgroundPanel backgroundPanel = new BackgroundPanel(backgroundImage.getImage());
+    GridBagConstraints gbc = new GridBagConstraints();
 
     public FenetreCaseCombat(Case case1, Personnage personnage, AvancementJeu avancementJeu) {
         FenetreCaseCombat.case1 = case1;
         FenetreCaseCombat.personnage = personnage;
         FenetreCaseCombat.avancementJeu = avancementJeu;
+        setupUIComponents();
 
-        setupWindow();
+        if ("Clerc".equals(personnage.getType())) {
+            handleClercClick();
+        }
 
         // Action listeners
         btnFuir.addActionListener(new ActionListener() {
@@ -41,29 +48,22 @@ public class FenetreCaseCombat extends JFrame {
         });
     }
 
-    private void setupWindow() {
-        // Set up fenêtre
+    private void setupUIComponents() {
         setTitle("Monstre encontré !");
         setBounds(100, 100, 950, 650);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        JLabel lblNewLabel = new JLabel("");
         lblNewLabel.setIcon(new ImageIcon(case1.getPath()));
 
-        BackgroundPanel backgroundPanel = new BackgroundPanel(backgroundImage.getImage());
         backgroundPanel.setLayout(new BorderLayout());
 
         // panel des boutons
-        JPanel buttonPanel = new JPanel(new GridBagLayout());
         buttonPanel.setOpaque(false); // Make the panel transparent
 
-        GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.SOUTH; // Anchor buttons to the bottom
         gbc.insets = new Insets(0, 0, 20, 0); // Add some padding around the buttons
-
-        // Crée boutons
 
         // Set preferred size of the buttons
         Dimension buttonSize = new Dimension(200, 60); // Width and height of the buttons
@@ -84,25 +84,30 @@ public class FenetreCaseCombat extends JFrame {
         backgroundPanel.add(buttonPanel, BorderLayout.SOUTH);
     }
 
+    private void handleClercClick() {
+        int delay = 2000;
+        Timer timer = new Timer(delay, new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                SwingUtilities.invokeLater(() -> {
+                    btnLutter.doClick();
+                });
+                updateAvancementJeu();
+                ((Timer) evt.getSource()).stop(); // Stop the timer after executing once
+            }
+        });
+
+        timer.start();
+    }
+
     private void fuir(Personnage personnage, AvancementJeu avancementJeu) {
         personnage.setPointsDeVie(personnage.getPointsDeVie() - 100);
-        if (personnage.getType().equals("Sorcier")) {
-            avancementJeu.setSorciere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-        } else if (personnage.getType().equals("Guerrier")) {
-            avancementJeu.setGuerrier_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-        } else if (personnage.getType().equals("Archer")) {
-            avancementJeu.setArchere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-        } else if (personnage.getType().equals("Clerc")) {
-            avancementJeu.setClerc_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-        }
-
-        JOptionPane.showMessageDialog(this,
-                "Vous avez fui, mais le monstre vous a quand même attaqué et vous avez perdu 100 PV.");
+        updateAvancementJeu();
+        autoDismissDialog("Vous avez fui, mais le monstre vous a quand même attaqué et vous avez perdu 100 PV.");
         dispose();
     }
 
     private void lutter(Personnage personnage, AvancementJeu avancementJeu) {
-        JOptionPane.showMessageDialog(this, "Vous avez choisi de lutter.");
+        autoDismissDialog("Vous avez choisi de lutter.");
         int de = jouezDe();
         if ((de % 2) != 0) {
             perdrePv(personnage, avancementJeu);
@@ -114,29 +119,32 @@ public class FenetreCaseCombat extends JFrame {
 
     private void perdrePv(Personnage personnage, AvancementJeu avancementJeu) {
         personnage.setPointsDeVie(personnage.getPointsDeVie() - 200);
-        if (personnage.getType().equals("Sorcier")) {
-            avancementJeu.setSorciere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-        } else if (personnage.getType().equals("Guerrier")) {
-            avancementJeu.setGuerrier_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-        } else if (personnage.getType().equals("Archer")) {
-            avancementJeu.setArchere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-        } else if (personnage.getType().equals("Clerc")) {
-            avancementJeu.setClerc_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-        }
-        JOptionPane.showMessageDialog(this, "Le monstre vous avez blessé et vous avez perdu 200 PV.");
+        updateAvancementJeu();
+        autoDismissDialog("Le monstre vous avez blessé et vous avez perdu 200 PV.");
     }
 
     private void gagnePv(Personnage personnage, AvancementJeu avancementJeu) {
-        JOptionPane.showMessageDialog(this, "Vous avez vaincu le monstre, pris son trésor et gagné 300 PV.");
         personnage.setPointsDeVie(personnage.getPointsDeVie() + 300);
-        if (personnage.getType().equals("Sorcier")) {
-            avancementJeu.setSorciere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-        } else if (personnage.getType().equals("Guerrier")) {
-            avancementJeu.setGuerrier_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-        } else if (personnage.getType().equals("Archer")) {
-            avancementJeu.setArchere_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
-        } else if (personnage.getType().equals("Clerc")) {
-            avancementJeu.setClerc_name(personnage.getPointsDeVie() + "PV  " + personnage.getNom());
+        updateAvancementJeu();
+        autoDismissDialog("Vous avez vaincu le monstre, pris son trésor et gagné 300 PV.");
+    }
+
+    private void updateAvancementJeu() {
+        // Logic to update avancementJeu based on personnage type
+        String pvText = personnage.getPointsDeVie() + "PV  " + personnage.getNom();
+        switch (personnage.getType()) {
+            case "Sorcier":
+                avancementJeu.setSorciere_name(pvText);
+                break;
+            case "Guerrier":
+                avancementJeu.setGuerrier_name(pvText);
+                break;
+            case "Archer":
+                avancementJeu.setArchere_name(pvText);
+                break;
+            case "Clerc":
+                avancementJeu.setClerc_name(pvText);
+                break;
         }
     }
 
@@ -152,6 +160,20 @@ public class FenetreCaseCombat extends JFrame {
                 new FenetreCaseCombat(case1, personnage, avancementJeu).setVisible(true);
             }
         });
+    }
+
+    private void autoDismissDialog(String message) {
+        // Create a JOptionPane
+        JOptionPane pane = new JOptionPane(message, JOptionPane.INFORMATION_MESSAGE);
+        final JDialog dialog = pane.createDialog("Auto-closing Dialog");
+
+        // Set a Timer to close the dialog after 5 seconds (5000 milliseconds)
+        Timer timer = new Timer(5000, e -> dialog.dispose());
+        timer.setRepeats(false);
+        timer.start();
+
+        // Display the dialog
+        dialog.setVisible(true);
     }
 
     class BackgroundPanel extends JPanel {
