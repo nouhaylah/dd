@@ -68,8 +68,8 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (personnage.equals("Sorcier")) {
-            for (int i = 0; i < 6; i++) {
-                for (int j = 0; j < 6; j++) {
+            for (int i = 0; i < 7; i++) {
+                for (int j = 0; j < 7; j++) {
                     if (e.getSource() == plateau[i][j]) {
                         xSorciere = i;
                         ySorciere = j;
@@ -94,8 +94,8 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
         }
 
         if (personnage.equals("Guerrier")) {
-            for (int i = 0; i < 6; i++) {
-                for (int j = 0; j < 6; j++) {
+            for (int i = 0; i < 7; i++) {
+                for (int j = 0; j < 7; j++) {
                     if (e.getSource() == plateau[i][j]) {
                         xGuerrier = i;
                         yGuerrier = j;
@@ -118,16 +118,19 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
         }
 
         if (personnage.equals("Archer")) {
-            for (int i = 0; i < 6; i++) {
-                for (int j = 0; j < 6; j++) {
+            for (int i = 0; i < 7; i++) {
+                for (int j = 0; j < 7; j++) {
                     if (e.getSource() == plateau[i][j]) {
                         xArcher = i;
                         yArcher = j;
                         System.out.println(xArcher + " " + yArcher);
 
-                        if (isOccupiedArcher(xArcher, yArcher) || !isValidLMove(archere, xArcher, yArcher)) {
+                        if (isOccupiedArcher(xArcher, yArcher)) {
                             System.out.println(
-                                    "Deplacement Impossible. Un autre joueur est sur cette case ou mouvement non valide");
+                                    "Deplacement Impossible. Un autre joueur est sur cette case!");
+                        } else if (!isValidLMove(archere, xArcher, yArcher)) {
+                            System.out.println(
+                                    "Deplacement Impossible. Mouvement non valide!");
                         } else {
                             moveArcher(archere, xArcher, yArcher);
                             handleCases(xArcher, yArcher, archere);

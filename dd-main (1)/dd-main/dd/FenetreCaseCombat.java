@@ -11,13 +11,37 @@ public class FenetreCaseCombat extends JFrame {
     private static AvancementJeu avancementJeu;
     private static Case case1;
 
-    private String font = "Arial Black";
+    private static final String font = "Arial Black";
+    private static final ImageIcon backgroundImage = new ImageIcon("images/monstreencounter.png");
+
+    JButton btnFuir = new CustomButton("Fuir", Color.DARK_GRAY, Color.WHITE, new Font(font, Font.BOLD, 20));
+    JButton btnLutter = new CustomButton("Lutter", Color.DARK_GRAY, Color.WHITE,
+            new Font(font, Font.BOLD, 20));
 
     public FenetreCaseCombat(Case case1, Personnage personnage, AvancementJeu avancementJeu) {
         FenetreCaseCombat.case1 = case1;
         FenetreCaseCombat.personnage = personnage;
         FenetreCaseCombat.avancementJeu = avancementJeu;
 
+        setupWindow();
+
+        // Action listeners
+        btnFuir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fuir(personnage, avancementJeu);
+            }
+        });
+
+        btnLutter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                lutter(personnage, avancementJeu);
+            }
+        });
+    }
+
+    private void setupWindow() {
         // Set up fenêtre
         setTitle("Monstre encontré !");
         setBounds(100, 100, 950, 650);
@@ -28,7 +52,6 @@ public class FenetreCaseCombat extends JFrame {
         JLabel lblNewLabel = new JLabel("");
         lblNewLabel.setIcon(new ImageIcon(case1.getPath()));
 
-        ImageIcon backgroundImage = new ImageIcon("images/monstreencounter.png"); // Replace with your image path
         BackgroundPanel backgroundPanel = new BackgroundPanel(backgroundImage.getImage());
         backgroundPanel.setLayout(new BorderLayout());
 
@@ -41,9 +64,6 @@ public class FenetreCaseCombat extends JFrame {
         gbc.insets = new Insets(0, 0, 20, 0); // Add some padding around the buttons
 
         // Crée boutons
-        JButton btnFuir = new CustomButton("Fuir", Color.DARK_GRAY, Color.WHITE, new Font(font, Font.BOLD, 20));
-        JButton btnLutter = new CustomButton("Lutter", Color.DARK_GRAY, Color.WHITE,
-                new Font(font, Font.BOLD, 20));
 
         // Set preferred size of the buttons
         Dimension buttonSize = new Dimension(200, 60); // Width and height of the buttons
@@ -62,21 +82,6 @@ public class FenetreCaseCombat extends JFrame {
 
         // Add the transparent panel to the background panel
         backgroundPanel.add(buttonPanel, BorderLayout.SOUTH);
-
-        // Action listeners
-        btnFuir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                fuir(personnage, avancementJeu);
-            }
-        });
-
-        btnLutter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                lutter(personnage, avancementJeu);
-            }
-        });
     }
 
     private void fuir(Personnage personnage, AvancementJeu avancementJeu) {
