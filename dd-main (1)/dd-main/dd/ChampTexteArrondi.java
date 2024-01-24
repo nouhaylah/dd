@@ -1,10 +1,12 @@
 import javax.swing.JTextField;
+
+import interfaces.ChampTexte;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
 
-public class ChampTexteArrondi extends JTextField {
+public class ChampTexteArrondi extends JTextField implements ChampTexte {
     private static final long serialVersionUID = 1L;
     private int rayon;
 
@@ -40,5 +42,9 @@ public class ChampTexteArrondi extends JTextField {
         RoundRectangle2D rectangleArrondi = new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, rayon,
                 rayon);
         return rectangleArrondi.contains(x, y);
+    }
+
+    @Override
+    public void create() {
     }
 }

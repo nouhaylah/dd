@@ -6,7 +6,7 @@ public class ChampTextFactory {
             return null;
         }
         if (type.equalsIgnoreCase("ARRONDI")) {
-            return new ChampTexteOval(15);
+            return new ChampTexteArrondi(15);
         } else if (type.equalsIgnoreCase("CARRE")) {
             return new ChampTexteCarre();
         }

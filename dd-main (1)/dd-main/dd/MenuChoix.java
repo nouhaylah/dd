@@ -197,7 +197,8 @@ public class MenuChoix extends JFrame {
 	}
 
 	private JTextField createTextBox() {
-		JTextField textBox = new ChampTexteArrondi(15);
+		ChampTextFactory factory = new ChampTextFactory();
+		JTextField textBox = (JTextField) factory.getChampTexte("ARRONDI");
 		textBox.setColumns(10);
 		textBox.setBackground(TEXTBOX_BACKGROUND_COLOR);
 		textBox.setForeground(TEXTBOX_FOREGROUND_COLOR);
