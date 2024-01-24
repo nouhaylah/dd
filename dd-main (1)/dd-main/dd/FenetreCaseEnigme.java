@@ -1,16 +1,14 @@
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
-
 import models.Personnage;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -18,10 +16,10 @@ import java.awt.event.ActionListener;
 
 public class FenetreCaseEnigme extends JFrame implements ActionListener {
 	private JButton btnRepondre, btnAbondonner;
-	private JTextField reponse;
 	private Personnage personnage;
 	private Case case1;
 	private AvancementJeu avancementJeu;
+	private JTextField reponse;
 
 	public FenetreCaseEnigme(AvancementJeu av, Personnage personnage, Case case1, String answer) {
 		this.personnage = personnage;
@@ -99,7 +97,7 @@ public class FenetreCaseEnigme extends JFrame implements ActionListener {
 
 	private void setupUIComponents() {
 		JPanel contentPane;
-		setTitle("ENIGME");
+		setTitle("Enigme");
 
 		setBackground(new Color(0, 0, 0));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -116,11 +114,8 @@ public class FenetreCaseEnigme extends JFrame implements ActionListener {
 		lblNewLabel.setBounds(91, -18, 865, 584);
 		contentPane.add(lblNewLabel);
 
-		reponse = new JTextField();
-		reponse.setFont(new Font("Tahoma", Font.BOLD, 12));
-		reponse.setBounds(444, 576, 199, 19);
+		reponse = createReponseTextbox();
 		contentPane.add(reponse);
-		reponse.setColumns(10);
 
 		btnRepondre = new JButton("REPONDRE");
 		btnRepondre.setFont(new Font("Calibri", Font.BOLD, 18));
@@ -139,5 +134,13 @@ public class FenetreCaseEnigme extends JFrame implements ActionListener {
 		btnAbondonner.addActionListener(this);
 
 		setResizable(false);
+	}
+
+	private JTextField createReponseTextbox() {
+		ChampTextFactory factory = new ChampTextFactory();
+		JTextField textBox = (JTextField) factory.getChampTexte("CARRE");
+		textBox.setFont(new Font("Tahoma", Font.BOLD, 12));
+		textBox.setBounds(444, 576, 199, 19);
+		return textBox;
 	}
 }
