@@ -33,6 +33,18 @@ public class Cases {
                     "src\\resources\\enigmes\\Enigme9.png",
                     "src\\resources\\enigmes\\Enigme10.png"));
 
+    private static final ArrayList<String> enigmeReponses = new ArrayList<>(
+            Arrays.asList("COURT",
+                    "PAROLE",
+                    "BOUGIE",
+                    "REVE",
+                    "PIANO",
+                    "ORDINATEUR",
+                    "NOMBRE BINAIRE 0",
+                    "MOT DE PASSE",
+                    "LE NAVIGATEUR TOR",
+                    "LA MATRICE"));
+
     public Cases() {
         plateau = new Case[7][7];
         // Remplissage du plateau avec des boutons (vous pouvez personnaliser cela selon
@@ -102,50 +114,43 @@ public class Cases {
                     if (i == 3 && j == 2) {
                         plateau[i][j] = new Case(i, j, Color.BLUE, caseTypeEnigme,
                                 enigmePaths.get(0),
-                                "COURT", "");
+                                enigmeReponses.get(0));
                     } else if (i == 3 && j == 4) {
                         plateau[i][j] = new Case(i, j, Color.BLUE, caseTypeEnigme,
                                 enigmePaths.get(1),
-                                "PAROLE",
-                                "");
+                                enigmeReponses.get(1));
                     } else if (i == 4 && j == 1) {
                         plateau[i][j] = new Case(i, j, Color.BLUE, caseTypeEnigme,
                                 enigmePaths.get(2),
-                                "BOUGIE",
-                                "");
+                                enigmeReponses.get(2));
                     } else if (i == 2 && j == 5) {
                         plateau[i][j] = new Case(i, j, Color.BLUE, caseTypeEnigme,
                                 enigmePaths.get(3),
-                                "REVE",
-                                "");
+                                enigmeReponses.get(3));
                     } else if (i == 2 && j == 0) {
                         plateau[i][j] = new Case(i, j, Color.BLUE, caseTypeEnigme,
                                 enigmePaths.get(4),
-                                "PIANO", "");
+                                enigmeReponses.get(4));
                     } else if (i == 4 && j == 6) {
                         plateau[i][j] = new Case(i, j, Color.BLUE, caseTypeEnigme,
                                 enigmePaths.get(5),
-                                "ORDINATEUR",
-                                "");
+                                enigmeReponses.get(5));
                     } else if (i == 2 && j == 6) {
                         plateau[i][j] = new Case(i, j, Color.BLUE, caseTypeEnigme,
                                 enigmePaths.get(6),
-                                "NOMBRE BINAIRE 0", "");
+                                enigmeReponses.get(6));
                     } else if (i == 4 && j == 3) {
                         plateau[i][j] = new Case(i, j, Color.BLUE, caseTypeEnigme,
                                 enigmePaths.get(7),
-                                "MOT DE PASSE",
-                                "");
+                                enigmeReponses.get(7));
                     } else if (i == 3 && j == 1) {
                         plateau[i][j] = new Case(i, j, Color.BLUE, caseTypeEnigme,
                                 enigmePaths.get(8),
-                                "LE NAVIGATEUR TOR",
-                                "");
+                                enigmeReponses.get(8));
                     } else if (i == 1 && j == 6) {
                         plateau[i][j] = new Case(i, j, Color.BLUE, caseTypeEnigme,
                                 enigmePaths.get(9),
-                                "LA MATRICE",
-                                "");
+                                enigmeReponses.get(9));
                     }
                 }
                 // CASES NEUTRE

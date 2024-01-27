@@ -16,9 +16,9 @@ public class Case extends JButton {
     private String pathEnigme;
     private int points;
 
-    public Case(int x, int y, Color couleur, String type, String pathEnigme, String answer, String enigme) { // pour les
-                                                                                                             // cases
-                                                                                                             // enigme
+    public Case(int x, int y, Color couleur, String type, String pathEnigme, String answer) { // pour les
+                                                                                              // cases
+                                                                                              // enigme
         super();
         this.couleur = couleur;
         this.type = type;

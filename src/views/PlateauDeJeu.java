@@ -1,7 +1,6 @@
 package src.views;
 
 import javax.swing.*;
-
 import src.controllers.AvancementJeu;
 import src.controllers.Case;
 import src.controllers.Cases;
@@ -11,7 +10,6 @@ import src.models.Clerc;
 import src.models.Guerrier;
 import src.models.Personnage;
 import src.models.Sorcier;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,10 +29,10 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
     public String personnage;
     public AvancementJeu avancementJeu;
     public int xSorciere, ySorciere, xArcher, yArcher, xGuerrier, yGuerrier, xClerc, yClerc, x;
-    private String sorcierePlateau = "src\\resources\\sorcierePlateau.png";
-    private String archerPlateau = "src\\resources\\archerePlateau.png";
-    private String guerrierPlateau = "src\\resources\\guerrierPlateau.png";
-    private String clercPlateau = "src\\resources\\clercPlateau.png";
+    private static final String sorcierePlateau = "src\\resources\\sorcierePlateau.png";
+    private static final String archerPlateau = "src\\resources\\archerePlateau.png";
+    private static final String guerrierPlateau = "src\\resources\\guerrierPlateau.png";
+    private static final String clercPlateau = "src\\resources\\clercPlateau.png";
 
     public PlateauDeJeu(Archer archere, Sorcier sorciere, Guerrier guerrier, Clerc clerc, AvancementJeu avancementJeu) {
         this.avancementJeu = avancementJeu;
