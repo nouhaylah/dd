@@ -22,7 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
-public class PopUp extends JFrame implements ActionListener {
+public class FenetreCaseChance extends JFrame implements ActionListener {
 
     PointsDeVieManager pointsDeVieManager = new PointsDeVieManager();
     private Personnage personnage;
@@ -30,15 +30,13 @@ public class PopUp extends JFrame implements ActionListener {
     private Case case1;
     JButton btnOk = new JButton("OK");
 
-    public PopUp(Case case1, Personnage personnage, AvancementJeu avancementJeu) {
+    public FenetreCaseChance(Case case1, Personnage personnage, AvancementJeu avancementJeu) {
         this.personnage = personnage;
         this.avancementJeu = avancementJeu;
         this.case1 = case1;
         setupUIComponents();
 
         if ("Clerc".equals(personnage.getType()) && "CHANCE".equals(case1.getType())) {
-            handleClercClick();
-        } else if ("Clerc".equals(personnage.getType()) && "MALCHANCE".equals(case1.getType())) {
             handleClercClick();
         }
     }
@@ -47,16 +45,10 @@ public class PopUp extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String btn = ((JButton) e.getSource()).getText();
         if (btn.equals("OK")) {
-            if (case1.getType().equals("CHANCE")) {
-                pointsDeVieManager.augmenterPoints(personnage, case1.getPoints());
-                updateAvancementJeu();
-            } else if (case1.getType().equals("MALCHANCE")) {
-                pointsDeVieManager.diminuerPoints(personnage, case1.getPoints());
-                updateAvancementJeu();
-            }
-
-            this.setVisible(false);
+            pointsDeVieManager.diminuerPoints(personnage, case1.getPoints());
+            updateAvancementJeu();
         }
+        this.setVisible(false);
     }
 
     private void handleClercClick() {

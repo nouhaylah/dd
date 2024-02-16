@@ -1,12 +1,16 @@
 package src.views;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import src.controllers.AvancementJeu;
 import src.controllers.Case;
 import src.models.Personnage;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Random;
 
 public class FenetreCaseCombat extends JFrame {
@@ -18,13 +22,17 @@ public class FenetreCaseCombat extends JFrame {
     private static final String font = "Arial Black";
     private static final ImageIcon backgroundImage = new ImageIcon("src\\resources\\monstreencounter.png");
 
-    JButton btnFuir = new CustomButton("Fuir", Color.DARK_GRAY, Color.WHITE, new Font(font, Font.BOLD, 20));
-    JButton btnLutter = new CustomButton("Lutter", Color.DARK_GRAY, Color.WHITE,
+    // JButton btnFuirClerc = new CustomButton("Fuir", Color.DARK_GRAY, Color.WHITE,
+    // new Font(font, Font.BOLD, 20));
+    JButton btnLutterClerc = new CustomButton("Lutter", Color.DARK_GRAY, Color.WHITE,
             new Font(font, Font.BOLD, 20));
     JLabel lblNewLabel = new JLabel("");
     JPanel buttonPanel = new JPanel(new GridBagLayout());
     BackgroundPanel backgroundPanel = new BackgroundPanel(backgroundImage.getImage());
     GridBagConstraints gbc = new GridBagConstraints();
+
+    JLabel btnFuir = new JLabel("");
+    JLabel btnLutter = new JLabel("");
 
     public FenetreCaseCombat(Case case1, Personnage personnage, AvancementJeu avancementJeu) {
         FenetreCaseCombat.case1 = case1;
@@ -36,15 +44,14 @@ public class FenetreCaseCombat extends JFrame {
             handleClercClick();
         }
 
-        // Action listeners
-        btnFuir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                fuir(personnage, avancementJeu);
-            }
-        });
+        // btnFuirClerc.addActionListener(new ActionListener() {
+        // @Override
+        // public void actionPerformed(ActionEvent e) {
+        // fuir(personnage, avancementJeu);
+        // }
+        // });
 
-        btnLutter.addActionListener(new ActionListener() {
+        btnLutterClerc.addActionListener(new ActionListener() { // bouton invisible pour le clerc
             @Override
             public void actionPerformed(ActionEvent e) {
                 lutter(personnage, avancementJeu);
@@ -53,39 +60,53 @@ public class FenetreCaseCombat extends JFrame {
     }
 
     private void setupUIComponents() {
-        setTitle("Monstre encontré !");
-        setBounds(100, 100, 950, 650);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLayout(new BorderLayout());
+        JPanel contentPane;
+        setTitle("Combat");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 751, 586);
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(0, 0, 0));
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        lblNewLabel.setIcon(new ImageIcon(case1.getPath()));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
 
-        backgroundPanel.setLayout(new BorderLayout());
+        JLabel lblNewLabel_1 = new JLabel("");
+        lblNewLabel_1.setIcon(new ImageIcon("src\\resources\\CentraleFlame.png"));
+        lblNewLabel_1.setBounds(255, 22, 522, 446);
+        contentPane.add(lblNewLabel_1);
 
-        // panel des boutons
-        buttonPanel.setOpaque(false); // Make the panel transparent
+        JLabel lblNewLabel = new JLabel("");
+        lblNewLabel.setIcon(new ImageIcon("src\\resources\\dragon.png"));
+        lblNewLabel.setBounds(-74, 45, 524, 417);
+        contentPane.add(lblNewLabel);
 
-        gbc.anchor = GridBagConstraints.SOUTH; // Anchor buttons to the bottom
-        gbc.insets = new Insets(0, 0, 20, 0); // Add some padding around the buttons
+        btnFuir.setIcon(new ImageIcon("src\\resources\\fuir.png"));
+        btnFuir.setBounds(-104, 445, 252, 104);
+        contentPane.add(btnFuir);
 
-        // Set preferred size of the buttons
-        Dimension buttonSize = new Dimension(200, 60); // Width and height of the buttons
-        btnFuir.setPreferredSize(buttonSize);
-        btnLutter.setPreferredSize(buttonSize);
+        btnLutter.setIcon(new ImageIcon("src\\resources\\lutter.png"));
+        btnLutter.setBounds(475, 445, 252, 104);
+        contentPane.add(btnLutter);
 
-        // Add button panel to the background panel
-        buttonPanel.add(Box.createHorizontalGlue()); // Push buttons to the center
-        buttonPanel.add(btnFuir, gbc);
-        buttonPanel.add(Box.createRigidArea(new Dimension(10, 0))); // Space between buttons
-        buttonPanel.add(btnLutter, gbc);
-        buttonPanel.add(Box.createHorizontalGlue()); // Push buttons to the center
+        addListeners();
+    }
 
-        // Add background panel to the frame
-        add(backgroundPanel);
+    // Action listeners
+    private void addListeners() {
+        btnFuir.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                fuir(personnage, avancementJeu);
+            }
+        });
 
-        // Add the transparent panel to the background panel
-        backgroundPanel.add(buttonPanel, BorderLayout.SOUTH);
+        btnLutter.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                lutter(personnage, avancementJeu);
+            }
+        });
     }
 
     private void handleClercClick() {
@@ -93,7 +114,7 @@ public class FenetreCaseCombat extends JFrame {
         Timer timer = new Timer(delay, new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 SwingUtilities.invokeLater(() -> {
-                    btnLutter.doClick();
+                    btnLutterClerc.doClick();
                 });
                 updateAvancementJeu();
                 ((Timer) evt.getSource()).stop(); // Stop the timer after executing once

@@ -33,6 +33,7 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
     private static final String archerPlateau = "src\\resources\\archerePlateau.png";
     private static final String guerrierPlateau = "src\\resources\\guerrierPlateau.png";
     private static final String clercPlateau = "src\\resources\\clercPlateau.png";
+    private static final Color fondCase = new Color(67, 41, 67);
 
     public PlateauDeJeu(Archer archere, Sorcier sorciere, Guerrier guerrier, Clerc clerc, AvancementJeu avancementJeu) {
         this.avancementJeu = avancementJeu;
@@ -59,15 +60,23 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
             for (int j = 0; j < 7; j++) {
                 plateau[i][j] = new JButton();
                 plateau[i][j].setIcon(casess[i][j].getIcon());
-                plateau[i][j].setBorder(BorderFactory.createLineBorder(Color.white));
+                plateau[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
                 plateau[i][j].addActionListener(this);
                 add(plateau[i][j]);
 
                 // Implementation des couleurs du plateau
+                // if(casess[i][j].getType() == "ENIGME" || "CHANCE" == casess[i][j].getType()
+                // || "MALCHANCE" == casess[i][j].getType() || "COMBAT" ==
+                // casess[i][j].getType()) {
+                // plateau[i][j].setBackground(Color.white);
+                // } else {
+                // plateau[i][j].setBackground(fondCase);
+                // }
+
                 if ((i + j) % 2 == 0) {
                     plateau[i][j].setBackground(Color.black);
                 } else {
-                    plateau[i][j].setBackground(Color.darkGray);
+                    plateau[i][j].setBackground(fondCase);
                 }
             }
         }
@@ -319,9 +328,13 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
             FenetreCaseEnigme fenetreCase = new FenetreCaseEnigme(avancementJeu, personnage,
                     casess[xPersonnage][yPersonnage], "");
             fenetreCase.setVisible(true);
-        } else if (casess[xPersonnage][yPersonnage].getType().equals("CHANCE")
-                || casess[xPersonnage][yPersonnage].getType().equals("MALCHANCE")) {
-            PopUp fenetreCase = new PopUp(casess[xPersonnage][yPersonnage], personnage, avancementJeu);
+        } else if (casess[xPersonnage][yPersonnage].getType().equals("MALCHANCE")) {
+            FenetreCaseMalchance fenetreCase = new FenetreCaseMalchance(casess[xPersonnage][yPersonnage], personnage,
+                    avancementJeu);
+            fenetreCase.setVisible(true);
+        } else if (casess[xPersonnage][yPersonnage].getType().equals("CHANCE")) {
+            FenetreCaseChance fenetreCase = new FenetreCaseChance(casess[xPersonnage][yPersonnage], personnage,
+                    avancementJeu);
             fenetreCase.setVisible(true);
         } else if (casess[xPersonnage][yPersonnage].getType().equals("COMBAT")) {
             FenetreCaseCombat fenetreCase = new FenetreCaseCombat(casess[xPersonnage][yPersonnage],

@@ -12,7 +12,7 @@ public class Cases {
     private static final String archerePlateau = "src\\resources\\archerePlateau.png";
     private static final String clercPlateau = "src\\resources\\clercPlateau.png";
     private static final String pathImgChance = "src\\resources\\Chancee.png";
-    private static final String pathImgMalchance = "src\\resources\\Malchancee.png";
+    private static final String pathImgMalchance = "src\\resources\\bg-malchance.png";
 
     private static final String caseTypeDepart = "DEPART";
     private static final String caseTypeChance = "CHANCE";
