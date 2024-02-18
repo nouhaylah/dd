@@ -7,12 +7,12 @@ import java.util.ArrayList;
 public class Cases {
     public Case[][] plateau = new Case[7][7];
 
-    private static final String sorcierePlateau = "src\\resources\\sorcierePlateau.png";
-    private static final String guerrierPlateau = "src\\resources\\guerrierPlateau.png";
-    private static final String archerePlateau = "src\\resources\\archerePlateau.png";
-    private static final String clercPlateau = "src\\resources\\clercPlateau.png";
-    private static final String pathImgChance = "src\\resources\\Chancee.png";
-    private static final String pathImgMalchance = "src\\resources\\bg-malchance.png";
+    private static final String sorcierePlateau = "/src/resources/sorcierePlateau.png";
+    private static final String guerrierPlateau = "/src/resources/guerrierPlateau.png";
+    private static final String archerePlateau = "/src/resources/archerePlateau.png";
+    private static final String clercPlateau = "/src/resources/clercPlateau.png";
+    private static final String pathImgChance = "/src/resources/Chancee.png";
+    private static final String pathImgMalchance = "/src/resources/bg-malchance.png";
 
     private static final String caseTypeDepart = "DEPART";
     private static final String caseTypeChance = "CHANCE";
@@ -22,16 +22,16 @@ public class Cases {
     private static final String caseTypeNeutre = "NEUTRE";
 
     private static final ArrayList<String> enigmePaths = new ArrayList<>(
-            Arrays.asList("src\\resources\\enigmes\\Enigme1.png",
-                    "src\\resources\\enigmes\\Enigme2.png",
-                    "src\\resources\\enigmes\\Enigme3.png",
-                    "src\\resources\\enigmes\\Enigme4.png",
-                    "src\\resources\\enigmes\\Enigme5.png",
-                    "src\\resources\\enigmes\\Enigme6.png",
-                    "src\\resources\\enigmes\\Enigme7.png",
-                    "src\\resources\\enigmes\\Enigme8.png",
-                    "src\\resources\\enigmes\\Enigme9.png",
-                    "src\\resources\\enigmes\\Enigme10.png"));
+            Arrays.asList("/src/resources/enigmes/Enigme1.png",
+                    "/src/resources/enigmes/Enigme2.png",
+                    "/src/resources/enigmes/Enigme3.png",
+                    "/src/resources/enigmes/Enigme4.png",
+                    "/src/resources/enigmes/Enigme5.png",
+                    "/src/resources/enigmes/Enigme6.png",
+                    "/src/resources/enigmes/Enigme7.png",
+                    "/src/resources/enigmes/Enigme8.png",
+                    "/src/resources/enigmes/Enigme9.png",
+                    "/src/resources/enigmes/Enigme10.png"));
 
     private static final ArrayList<String> enigmeReponses = new ArrayList<>(
             Arrays.asList("COURT",

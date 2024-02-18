@@ -44,12 +44,12 @@ public class MenuChoix extends JFrame {
 	private static final Color TEXTBOX_BACKGROUND_COLOR = new Color(204, 167, 81);
 	private static final Font TEXTBOX_FONT = new Font("Arial Black", Font.BOLD, 14);
 	private static final Font HEADER_FONT = new Font("Arial Black", Font.BOLD, 26);
-	private static final String DECO_IMAGE_PATH = "..\\resources\\deco.png";
-	private static final String NEXT_IMAGE_PATH = "..\\resources\\next.png";
-	private static final String BACK_IMAGE_PATH = "..\\resources\\back.png";
-	private static final String ARCHER_IMAGE_PATH = "..\\resources\\archere.png";
-	private static final String SORCIER_IMAGE_PATH = "..\\resources\\sorciere.png";
-	private static final String GUERRIER_IMAGE_PATH = "..\\resources\\guerrier.png";
+	private static final String DECO_IMAGE_PATH = "/src/resources/deco.png";
+	private static final String NEXT_IMAGE_PATH = "/src/resources/next.png";
+	private static final String BACK_IMAGE_PATH = "/src/resources/back.png";
+	private static final String ARCHER_IMAGE_PATH = "/src/resources/archere.png";
+	private static final String SORCIER_IMAGE_PATH = "/src/resources/sorciere.png";
+	private static final String GUERRIER_IMAGE_PATH = "/src/resources/guerrier.png";
 
 	public MenuChoix() {
 		setupPane();

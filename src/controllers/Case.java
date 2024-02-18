@@ -1,6 +1,7 @@
 package src.controllers;
 
 import java.awt.Color;
+import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -10,10 +11,10 @@ public class Case extends JButton {
     private Color couleur;
     private String type;
     private Icon icon;
-    private String path;
+    private URL path;
     private int x, y;
     private String answer;
-    private String pathEnigme;
+    private URL pathEnigme;
     private int points;
 
     public Case(int x, int y, Color couleur, String type, String pathEnigme, String answer) { // pour les
@@ -22,7 +23,7 @@ public class Case extends JButton {
         super();
         this.couleur = couleur;
         this.type = type;
-        this.pathEnigme = pathEnigme;
+        this.pathEnigme = getClass().getResource(pathEnigme);
         this.x = x;
         this.y = y;
         this.answer = answer;
@@ -32,7 +33,6 @@ public class Case extends JButton {
         super();
         this.couleur = couleur;
         this.type = type;
-        this.path = "";
         this.x = x;
         this.y = y;
         this.answer = "";
@@ -43,7 +43,7 @@ public class Case extends JButton {
         this.type = type;
         this.x = x;
         this.y = y;
-        this.path = path;
+        this.path = getClass().getResource(path);
         this.points = points;
     }
 
@@ -51,19 +51,19 @@ public class Case extends JButton {
         super();
         this.couleur = couleur;
         this.type = type;
-        this.path = path;
+        this.path = getClass().getResource(path);
         this.x = x;
         this.y = y;
         this.answer = "";
-        this.icon = new ImageIcon(path);
+        this.icon = new ImageIcon(getClass().getResource(path));
         // setIcon(icon);
     }
 
-    public String getPathEnigme() {
+    public URL getPathEnigme() {
         return pathEnigme;
     }
 
-    public void setPathEnigme(String pathEnigme) {
+    public void setPathEnigme(URL pathEnigme) {
         this.pathEnigme = pathEnigme;
     }
 
@@ -72,10 +72,10 @@ public class Case extends JButton {
     }
 
     public void setPath(String path) {
-        this.path = path;
+        this.path = getClass().getResource(path);
     }
 
-    public String getPath() {
+    public URL getPath() {
         return path;
     }
 
@@ -96,7 +96,7 @@ public class Case extends JButton {
     }
 
     public void setIcon(String path) {
-        icon = new ImageIcon(path);
+        icon = new ImageIcon(getClass().getResource(path));
         setIcon(icon);
     }
 

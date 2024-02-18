@@ -29,10 +29,10 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
     public String personnage;
     public AvancementJeu avancementJeu;
     public int xSorciere, ySorciere, xArcher, yArcher, xGuerrier, yGuerrier, xClerc, yClerc, x;
-    private static final String sorcierePlateau = "src\\resources\\sorcierePlateau.png";
-    private static final String archerPlateau = "src\\resources\\archerePlateau.png";
-    private static final String guerrierPlateau = "src\\resources\\guerrierPlateau.png";
-    private static final String clercPlateau = "src\\resources\\clercPlateau.png";
+    private static final String sorcierePlateau = "src/resources/sorcierePlateau.png";
+    private static final String archerPlateau = "/src/resources/archerePlateau.png";
+    private static final String guerrierPlateau = "/src/resources/guerrierPlateau.png";
+    private static final String clercPlateau = "/src/resources/clercPlateau.png";
     private static final Color fondCase = new Color(67, 41, 67);
 
     public PlateauDeJeu(Archer archere, Sorcier sorciere, Guerrier guerrier, Clerc clerc, AvancementJeu avancementJeu) {
@@ -198,7 +198,7 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
         plateau[guerrier.getX()][guerrier.getY()].setIcon(new ImageIcon(""));
         guerrier.setX(xGuerrier);
         guerrier.setY(yGuerrier);
-        plateau[xGuerrier][yGuerrier].setIcon(new ImageIcon(guerrierPlateau));
+        plateau[xGuerrier][yGuerrier].setIcon(new ImageIcon(getClass().getResource(guerrierPlateau)));
     }
 
     // Fonctions archer
@@ -215,7 +215,7 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
         plateau[archere.getX()][archere.getY()].setIcon(new ImageIcon(""));
         archere.setX(xArcher);
         archere.setY(yArcher);
-        plateau[xArcher][yArcher].setIcon(new ImageIcon(archerPlateau));
+        plateau[xArcher][yArcher].setIcon(new ImageIcon(getClass().getResource(archerPlateau)));
     }
 
     // Fonctions clerc
@@ -319,7 +319,7 @@ public class PlateauDeJeu extends JPanel implements ActionListener {
         plateau[clerc.getX()][clerc.getY()].setIcon(new ImageIcon(""));
         clerc.setX(xClerc);
         clerc.setY(yClerc);
-        plateau[xClerc][yClerc].setIcon(new ImageIcon(clercPlateau));
+        plateau[xClerc][yClerc].setIcon(new ImageIcon(getClass().getResource(clercPlateau)));
     }
 
     // Fonction cases

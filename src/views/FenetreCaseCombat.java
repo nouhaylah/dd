@@ -116,7 +116,6 @@ public class FenetreCaseCombat extends JFrame {
                 SwingUtilities.invokeLater(() -> {
                     btnLutterClerc.doClick();
                 });
-                updateAvancementJeu();
                 ((Timer) evt.getSource()).stop(); // Stop the timer after executing once
             }
         });

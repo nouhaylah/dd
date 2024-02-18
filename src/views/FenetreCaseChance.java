@@ -36,7 +36,7 @@ public class FenetreCaseChance extends JFrame implements ActionListener {
         this.case1 = case1;
         setupUIComponents();
 
-        if ("Clerc".equals(personnage.getType()) && "CHANCE".equals(case1.getType())) {
+        if ("Clerc".equals(personnage.getType())) {
             handleClercClick();
         }
     }
@@ -45,10 +45,10 @@ public class FenetreCaseChance extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String btn = ((JButton) e.getSource()).getText();
         if (btn.equals("OK")) {
-            pointsDeVieManager.diminuerPoints(personnage, case1.getPoints());
+            pointsDeVieManager.augmenterPoints(personnage, case1.getPoints());
             updateAvancementJeu();
+            this.setVisible(false);
         }
-        this.setVisible(false);
     }
 
     private void handleClercClick() {
@@ -57,6 +57,7 @@ public class FenetreCaseChance extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent evt) {
                 SwingUtilities.invokeLater(() -> {
                     btnOk.doClick();
+                    setVisible(false);
                 });
                 updateAvancementJeu();
                 ((Timer) evt.getSource()).stop(); // Stop the timer after executing once
