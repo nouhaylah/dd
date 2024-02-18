@@ -16,9 +16,9 @@ public class MainMenu extends JFrame {
 	private JLabel new_game;
 	private JLabel game_rules;
 	private JLabel exit;
-	private static final String NEWGAME_IMAGE_PATH = "..\\resources\\nv_partie.png";
-	private static final String RULES_IMAGE_PATH = "..\\resources\\rules.png";
-	private static final String QUIT_IMAGE_PATH = "..\\resources\\quitter.png";
+	private static final String NEWGAME_IMAGE_PATH = "/src/resources/nv_partie.png";
+	private static final String RULES_IMAGE_PATH = "/src/resources/rules.png";
+	private static final String QUIT_IMAGE_PATH = "/src/resources/quitter.png";
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {

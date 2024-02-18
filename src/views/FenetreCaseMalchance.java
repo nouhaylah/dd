@@ -41,17 +41,16 @@ public class FenetreCaseMalchance extends JFrame implements ActionListener {
         if ("Clerc".equals(personnage.getType())) {
             handleClercClick();
         }
-    }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String btn = ((JButton) e.getSource()).getText();
-        if (btn.equals("OK")) {
-            pointsDeVieManager.diminuerPoints(personnage, case1.getPoints());
-            updateAvancementJeu();
-        }
+        btnOkClerc.addActionListener(new ActionListener() { // bouton invisible pour le clerc
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pointsDeVieManager.diminuerPoints(personnage, case1.getPoints());
+                updateAvancementJeu();
+                setVisible(false);
+            }
+        });
 
-        this.setVisible(false);
     }
 
     private void addListeners() {
@@ -60,9 +59,9 @@ public class FenetreCaseMalchance extends JFrame implements ActionListener {
             public void mouseClicked(MouseEvent e) {
                 pointsDeVieManager.diminuerPoints(personnage, case1.getPoints());
                 updateAvancementJeu();
+                setVisible(false);
             }
         });
-        setVisible(false);
     }
 
     private void handleClercClick() {
@@ -71,9 +70,7 @@ public class FenetreCaseMalchance extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent evt) {
                 SwingUtilities.invokeLater(() -> {
                     btnOkClerc.doClick();
-                    setVisible(false);
                 });
-                updateAvancementJeu();
                 ((Timer) evt.getSource()).stop(); // Stop the timer after executing once
             }
         });
@@ -127,6 +124,12 @@ public class FenetreCaseMalchance extends JFrame implements ActionListener {
         lblNewLabel.setIcon(new ImageIcon("src\\resources\\bg-malchance.png"));
         lblNewLabel.setBounds(-23, -25, 776, 579);
         contentPane.add(lblNewLabel);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 
 }

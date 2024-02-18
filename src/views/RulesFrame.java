@@ -27,12 +27,12 @@ public class RulesFrame extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel back = new JLabel("");
-		back.setIcon(new ImageIcon("images/back.png"));
+		back.setIcon(new ImageIcon("/src/resources/back.png"));
 		back.setBounds(-80, 623, 232, 64);
 		contentPane.add(back);
 
 		JLabel bg = new JLabel("");
-		bg.setIcon(new ImageIcon("images/imgFond.png"));
+		bg.setIcon(new ImageIcon("/src/resources/imgFond.png"));
 		bg.setBounds(87, -15, 848, 710);
 		contentPane.add(bg);
 

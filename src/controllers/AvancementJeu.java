@@ -12,6 +12,8 @@ import src.models.Sorcier;
 public class AvancementJeu extends JPanel {
 	public JLabel joueurActuel;
 	private JLabel archere_name, sorciere_name, guerrier_name, clerc_name;
+	private static final String HEART_PATH = "/src/resources/heart.png";
+	private static final String CADRE_PATH = "/src/resources/cadree.png";
 
 	public AvancementJeu(Archer archere, Sorcier sorciere, Guerrier guerrier, Clerc clerc) {
 
@@ -20,22 +22,22 @@ public class AvancementJeu extends JPanel {
 		setBackground(Color.black);
 
 		JLabel pvGuerrier = new JLabel("");
-		pvGuerrier.setIcon(new ImageIcon("src\\resources\\heart.png"));
+		pvGuerrier.setIcon(new ImageIcon(getClass().getResource(HEART_PATH)));
 		pvGuerrier.setBounds(453, 10, 148, 188);
 		add(pvGuerrier);
 
 		JLabel pvSorciere = new JLabel("");
-		pvSorciere.setIcon(new ImageIcon("src\\resources\\heart.png"));
+		pvSorciere.setIcon(new ImageIcon(getClass().getResource(HEART_PATH)));
 		pvSorciere.setBounds(224, 10, 148, 188);
 		add(pvSorciere);
 
 		JLabel pvArchere = new JLabel("");
-		pvArchere.setIcon(new ImageIcon("src\\resources\\heart.png"));
+		pvArchere.setIcon(new ImageIcon(getClass().getResource(HEART_PATH)));
 		pvArchere.setBounds(0, 10, 148, 188);
 		add(pvArchere);
 
 		JLabel pvClerc = new JLabel("");
-		pvClerc.setIcon(new ImageIcon("src\\resources\\heart.png"));
+		pvClerc.setIcon(new ImageIcon(getClass().getResource(HEART_PATH)));
 		pvClerc.setBounds(0, 50, 148, 188);
 		add(pvClerc);
 
@@ -70,7 +72,7 @@ public class AvancementJeu extends JPanel {
 		add(labelTour);
 
 		JLabel blurredbg = new JLabel("");
-		blurredbg.setIcon(new ImageIcon("src\\resources\\cadree.png"));
+		blurredbg.setIcon(new ImageIcon(getClass().getResource(CADRE_PATH)));
 		blurredbg.setBounds(100, 110, 529, 500);
 		add(blurredbg);
 
