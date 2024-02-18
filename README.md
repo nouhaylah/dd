@@ -1,3 +1,5 @@
+## Guide pour lancer le jeu
+
 Si vous n’avez pas JDK installé sur votre machine vous pouvez l’installer en cliquant sur le lien ci-dessous.
 https://www.oracle.com/fr/java/technologies/downloads/
 
